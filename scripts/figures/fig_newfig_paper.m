@@ -12,8 +12,14 @@ load('..\..\data\bit_for_Frontiers.mat');
 
 load('..\..\data\drift.mat');
 
+c = parula;
+c = c(1:2:64,:);
 
+c_o = 6;
+c_a = 20;
+c_l = 18;
 
+edge = 1:7;
 
 
 %% Figure 2 - Basal dynamic vs basal static

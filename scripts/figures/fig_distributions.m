@@ -14,6 +14,9 @@ function [] = fig_distributions (vector1, vector2, color1, color2, ...
 c = parula;
 c =  c([1 6 11 16 21 26 31 36 41 46 51 56 61], :);
 
+fig = figure,
+set(fig, 'units', 'centimeters', 'position', [5 5 9.0 9.0]);
+
 edge = 1:7;
 
 plot(edge, hist(vector1, edge)/n_participants, ...

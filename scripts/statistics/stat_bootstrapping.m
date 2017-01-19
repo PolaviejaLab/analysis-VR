@@ -17,8 +17,8 @@ for i = 1:iterations
     for j = 1:n_comp
         vec_perm = vec_values(j, i_rand);
         vec_res(j, i) = ...
-            nanmean(vec_perm(1:length(vec_perm)/2)) - ...
-            nanmean(vec_perm(length(vec_perm)/2+1:length(vec_perm)));
+            nanmean(vec_perm(1:floor(length(vec_perm)/2))) - ...
+            nanmean(vec_perm(floor(length(vec_perm)/2)+1:length(vec_perm)));
     end
 end
 

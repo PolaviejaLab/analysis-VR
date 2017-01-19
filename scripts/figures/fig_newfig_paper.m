@@ -26,10 +26,11 @@ edge = 1:7;
 
 % Panel A - histogram and distribution
 fig2 = figure(2); clf;
-set(fig2, 'units', 'centimeters', 'position', [5 5 18.0 9.0]);
+set(fig2, 'units', 'centimeters', 'position', [5 5 9.0 9.0]);
 
-subplot('Position', [0.1, 0.8, 0.37, 0.1]); hold on;
-line([0 3], [4 4], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
+subplot('Position', [0.13, 0.8, 0.77, 0.1]); hold on;
+line([0 3], [4 4], 'color', [220/255 220/255 220/255], 'LineStyle', ':', ...
+    'LineWidth', 1.5); 
 b(1) = bar(1, mean(own_stat_nogap(:)), 0.5); 
 b(2) = bar(2, mean(own_dyn_control(:)), 0.5); 
 
@@ -45,10 +46,11 @@ line([3 3], [0 8], 'color', 'k');
 %     'FontWeight', 'bold', 'FontSize', 14); 
 xlim([0.5 2.5]); ylim([0.9 7.15]);
 set(gca, 'XTick', [], 'XTickLabel', {'', ''}, 'YTick', 1:1:7, 'Fontsize', 9);
-title('Sense of ownership', 'FontWeight', 'bold', 'fontsize', 13);
+title('Sense of ownership', 'FontWeight', 'bold');
 
-subplot('Position', [0.1, 0.15, 0.37, 0.65]); hold on;
-line([4 4], [0 8], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
+subplot('Position', [0.13, 0.15, 0.77, 0.65]); hold on;
+line([4 4], [0 8], 'color', [220/255 220/255 220/255], 'LineStyle', ':', ...
+    'LineWidth', 1.5); 
 p_1(1) = plot(edge, hist(own_stat_nogap(:), edge)/numel(own_stat_nogap), ...
     'color', c(c_o, :), 'LineWidth', 3); 
 p_1(2) = plot(edge, hist(own_dyn_control(:), edge)/numel(own_dyn_control), ...
@@ -60,53 +62,62 @@ line([mean(own_dyn_control(:)), mean(own_dyn_control(:))], [-0.1 1.1], ...
 hold off; box on;
 
 ylim([0 0.5]); xlim([0.9 7.15]); 
-ylabel('Probability density', 'FontSize', ...
-    12, 'FontWeight', 'bold');
-xlabel('Responses to questionnaires', 'FontWeight', ...
-    'bold', 'FontSize', 12); 
+ylabel('Probability density');
+xlabel('Responses to questionnaires'); 
 set(gca, 'YTick', 0.1:0.1:0.5, ...
     'YTickLabel', {'0.1', '0.2', '0.3', '0.4', ''}, ...
-    'Fontsize', 9);
-set(gca, 'XTick', 1:1:7, 'XTickLabel', 1:7, 'FontSize', 9); 
+    'Fontsize', 8);
+set(gca, 'XTick', 1:1:7, 'XTickLabel', 1:7, 'FontSize', 8); 
 
 legend(p_1, {'Basal static', 'Basal dynamic'}, 'Location', 'Northwest', ...
     'Fontsize', 8, 'FontWeight', 'bold');
 
+%%
 
 % Panel B - Scatter plot with the correlations. 
-subplot('Position', [0.6, 0.15, 0.37, 0.75]); hold on;
-plot(mean(own_stat_nogap), mean(own_dyn_control) - mean(own_stat_nogap),...
+fig2 = figure(2); clf;
+set(fig2, 'units', 'centimeters', 'position', [5 5 9.0 9.0]);
+
+subplot('Position', [0.13, 0.15, 0.77, 0.75]); hold on;
+
+ylim([0.5 7.5]); xlim([0.5 7.5]);
+
+line([0 8], [0 8], 'LineStyle', ':', 'color', [220/255 220/255 220/255]);
+line([3 3], [0 3], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1); line([0 3], [3 3], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1);
+line([5 5], [0 5], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1); line([0 5], [5 5], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1);
+
+plot(mean(own_stat_nogap), mean(own_dyn_control),...
     '.k', 'MarkerSize', 15);
-ylim([-5 5]);
-xlim([0.5 7.5]);
 
-line([0 8], [0 0], 'LineStyle', ':');
-line([3 3], [-5 5], 'LineStyle', ':');
-line([5 5], [-5 5], 'LineStyle', ':');
+% g1_stat = find(mean(own_stat_nogap) <= 3);
+% g2_stat = find(mean(own_stat_nogap) > 3 & mean(own_stat_nogap) < 5);
+% g3_stat = find(mean(own_stat_nogap) >= 5);
 
-g1_stat = find(mean(own_stat_nogap) <= 3);
-g2_stat = find(mean(own_stat_nogap) > 3 & mean(own_stat_nogap) < 5);
-g3_stat = find(mean(own_stat_nogap) >= 5);
-
-plot(mean(mean(own_stat_nogap(:, g1_stat))), ...
-    mean(mean(own_dyn_control(:, g1_stat))) - ...
-    mean(mean(own_stat_nogap(:, g1_stat))), '^b', ...
-    'MarkerSize', 13);
-plot(mean(mean(own_stat_nogap(:, g2_stat))), ...
-    mean(mean(own_dyn_control(:, g2_stat))) - ...
-    mean(mean(own_stat_nogap(:, g2_stat))), 'xb', ...
-    'MarkerSize', 13);
-plot(mean(mean(own_stat_nogap(:, g3_stat))), ...
-    mean(mean(own_dyn_control(:, g3_stat))) - ...
-    mean(mean(own_stat_nogap(:, g3_stat))), 'xb', ...
-    'MarkerSize', 13);
+% plot(mean(mean(own_stat_nogap(:, g1_stat))), ...
+%     mean(mean(own_dyn_control(:, g1_stat))) - ...
+%     mean(mean(own_stat_nogap(:, g1_stat))), '^b', ...
+%     'MarkerSize', 13);
+% plot(mean(mean(own_stat_nogap(:, g2_stat))), ...
+%     mean(mean(own_dyn_control(:, g2_stat))) - ...
+%     mean(mean(own_stat_nogap(:, g2_stat))), 'xb', ...
+%     'MarkerSize', 13);
+% plot(mean(mean(own_stat_nogap(:, g3_stat))), ...
+%     mean(mean(own_dyn_control(:, g3_stat))) - ...
+%     mean(mean(own_stat_nogap(:, g3_stat))), 'xb', ...
+%     'MarkerSize', 13);
 hold off; box on;
-set(gca, 'XTick', 1:1:7, 'XTickLabel', 1:7, 'FontSize', 9); 
 
-xlabel('Basal static', 'FontWeight', 'bold', 'FontSize', 12);
-ylabel('(Basal dynamic - basal static)', 'FontWeight', 'bold', 'FontSize', 12);
-title('Sense of ownership', 'FontWeight', 'bold', 'fontsize', 13);
+xlabel('Basal static');
+ylabel('Basal dynamic');
 
+title('Sense of ownership', 'FontWeight', 'bold');
+set(gca, 'XTick', 1:1:7, 'XTickLabel', 1:7, 'FontSize', 8); 
+
+%%
 % Annotatations
 annotation('textbox', [0.53, 0.575 + 0.325, 0.05, 0.05], ...
     'String', 'B', ...
@@ -159,10 +170,14 @@ set(gca, 'XTick', 1:6, 'XTickLabel', {'T' 'N-O' 'Bsl' 'OnR' 'Dsc' 'Ns'}, ...
     'FontSize', 9);
 title('Proprioceptive Drift', 'fontsize', 13, 'fontweight', 'bold');
 
+%% 
+fig3 = figure(3); clf;
+set(fig3, 'units', 'centimeters', 'position', [5 5 9.0 9.0]);
+
 %%%
 % Panel B - Reported  Sense of location
 %%%
-subplot('Position', [0.55, 0.875, 0.37, 0.05]);cla; hold on;
+subplot('Position', [0.13, 0.8, 0.77, 0.1]);cla; hold on;
 
 line([0 3], [4 4], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
 
@@ -184,7 +199,7 @@ set(gca, 'XTick', [], 'XTickLabel', {'', ''}, 'YTick', 1:1:7, 'Fontsize', 9);
 hold off; box on;
 title('Sense of Location', 'fontsize', 13, 'fontweight', 'bold');
 
-subplot('Position', [0.55, 0.575, 0.37, 0.3]); hold on;
+subplot('Position', [0.13, 0.15, 0.77, 0.65]); hold on;
 line([4 4], [0 8], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
 p_1(1) = plot(edge, hist(loc_dyn_control(:), edge)/numel(loc_dyn_control), ...
     'color', c(c_l, :), 'LineWidth', 3); 
@@ -202,6 +217,8 @@ set(gca, 'fontsize', 9);
 xlabel('Responses to questionnaires', 'FontWeight', 'bold', 'FontSize', 11); 
 ylabel('Probability distribution', 'fontsize', 11, 'fontweight', 'bold');
 
+
+%% 
 %%%
 % PANEL 3 - Self-reports location
 %%%
@@ -221,13 +238,14 @@ set(gca, 'XTick', 0:10:100, 'XTickLabel', -5:1:5, 'fontsize', 9);
 xlabel('Time to threat', 'fontsize', 11, 'FontWeight', 'bold');
 ylabel('Normalization', 'fontsize', 12, 'FontWeight', 'bold');
 title('Reaction to threat', 'fontsize', 13, 'fontweight', 'bold');
+%%
 
-
-
+fig3 = figure(3); clf;
+set(fig3, 'units', 'centimeters', 'position', [5 5 9.0 9.0]);
 %%%
 % PANEL D - - Self-reports knife-on-real
 %%%
-subplot('Position', [0.55, 0.4, 0.37, 0.05]); hold on;
+subplot('Position', [0.13, 0.8, 0.77, 0.1]); hold on;
 line([0 3], [4 4], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
 
 b(1) = bar(1, mean(own_dyn_control(:)), 0.5); 
@@ -248,7 +266,7 @@ set(gca, 'fontsize', 8);
 title('Sense of Ownership', 'fontsize', 13, 'fontweight', 'bold');
 
 
-subplot('Position', [0.55, 0.1, 0.37, 0.3]); hold on;
+subplot('Position', [0.13, 0.15, 0.77, 0.65]); hold on;
 line([4 4], [0 8], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
 p_1(1) = plot(edge, hist(own_dyn_control(:), edge)/numel(own_dyn_control), ...
     'color', c(c_o, :), 'LineWidth', 3); 
@@ -267,6 +285,8 @@ set(gca, 'fontsize', 9);
 
 xlabel('Responses to questionnaires', 'FontWeight', 'bold', 'FontSize', 11); 
 ylabel('Probability distribution', 'fontsize', 11, 'fontweight', 'bold');
+
+%%
 
 % Annotatations
 annotation('textbox', [0, 0.925, 0.05, 0.05], ...
@@ -299,10 +319,16 @@ annotation('textbox', [0.475, 0.45, 0.05, 0.05], ...
 fig4 = figure(4); clf;
 set(fig4, 'units', 'centimeters', 'position', [5 5 18.0 20.0]);
 
+
+%%
 %%%
 % Panel A - Sense of agency
 %%%
-subplot('Position', [0.075 0.575 0.37 0.3]); hold on;
+fig2 = figure(2); clf;
+set(fig2, 'units', 'centimeters', 'position', [5 5 9.0 9.0]);
+
+subplot('Position', [0.13, 0.15, 0.77, 0.65]); hold on;
+
 line([4 4], [0 8], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
 
 p(1) = plot(edge, hist(agn_dyn_control(:), edge)/numel(agn_dyn_control), ...
@@ -329,7 +355,7 @@ ylabel('Probability density', 'FontSize', ...
 
 
 
-subplot('Position', [0.075 0.875 0.37 0.05]); hold on;
+subplot('Position', [0.13, 0.8, 0.77, 0.1]); hold on;
 line([0 4], [4 4], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
 
 b(1) = bar(1, mean(agn_dyn_control(:)), 0.5); 
@@ -353,11 +379,13 @@ title('Sense of agency', 'FontWeight', 'bold', 'FontSize', 13);
 line([1 2], [6.8 6.8], 'Color', 'black');
 text(1.5, 6.95, '*', 'FontWeight', 'bold', 'FontSize', 12);
 
-
+%%
 %%%
 % PANEL B - Sense of ownership
 %%%
-subplot('Position', [0.55 0.575 0.37 0.3]); hold on;
+fig2 = figure(2); clf;
+set(fig2, 'units', 'centimeters', 'position', [5 5 9.0 9.0]);
+subplot('Position', [0.13, 0.15, 0.77, 0.65]); hold on;
 line([4 4], [0 8], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
 
 p(1) = plot(edge, hist(own_dyn_control(:), edge)/numel(own_dyn_control), ...
@@ -382,7 +410,7 @@ set(gca, 'YTick', 0.1:0.1:0.5, 'YTickLabel', ...
     'Fontsize', 9);
 
 
-subplot('Position', [0.55 0.875 0.37 0.05]); hold on;
+subplot('Position', [0.13, 0.8, 0.77, 0.1]); hold on;
 line([0 4], [4 4], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
 b(1) = bar(1, mean(own_dyn_control(:)), 0.5); 
 b(2) = bar(2, mean(own_dyn_noise(:)), 0.5); 
@@ -405,39 +433,49 @@ line([1 2], [6.5 6.5], 'Color', 'black');
 text(1.5, 6.65, '*', 'FontWeight', 'bold', 'FontSize', 12); box on;
 
 
-
+%%
 %%%
 % PANEL C - Correlations sense of ownership
 %%%
-g1_dyn = find(mean(own_dyn_control) <= 3);
-g2_dyn = find(mean(own_dyn_control) > 3 & mean(own_dyn_control) < 5);
-g3_dyn = find(mean(own_dyn_control) >= 5);
+% g1_dyn = find(mean(own_dyn_control) <= 3);
+% g2_dyn = find(mean(own_dyn_control) > 3 & mean(own_dyn_control) < 5);
+% g3_dyn = find(mean(own_dyn_control) >= 5);
 
-subplot('Position', [0.075 0.1 0.37 0.35]); hold on;
-ylim([-5 5]); xlim([0.5 7.5]);
 
-line([0 8], [0 0], 'LineStyle', ':');
-line([3 3], [-5 5], 'LineStyle', ':');
-line([5 5], [-5 5], 'LineStyle', ':');
+fig2 = figure(2); clf;
+set(fig2, 'units', 'centimeters', 'position', [5 5 9.0 9.0]);
+subplot('Position', [0.13, 0.15, 0.77, 0.75]); hold on;
 
-plot(mean(own_dyn_control), mean(own_dyn_noise) - mean(own_dyn_control), ...
+ylim([0.5 7.5]); xlim([0.5 7.5]);
+
+line([0 8], [0 8], 'LineStyle', ':', 'color', [220/255 220/255 220/255]);
+line([3 3], [0 3], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1); line([0 3], [3 3], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1);
+line([5 5], [0 5], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1); line([0 5], [5 5], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1);
+
+plot(mean(own_dyn_control), mean(own_dyn_noise), ...
     '.k', 'MarkerSize', 15);
-plot(mean(mean(own_dyn_control(:, g1_dyn))), ...
-    mean(mean(own_dyn_noise(:, g1_dyn))) - ...
-    mean(mean(own_dyn_control(:, g1_dyn))), 'xb', 'MarkerSize', 15);
-plot(mean(mean(own_dyn_control(:, g2_dyn))), ...
-    mean(mean(own_dyn_noise(:, g2_dyn))) - ...
-    mean(mean(own_dyn_control(:, g2_dyn))), 'xb', 'MarkerSize', 15);
-plot(mean(mean(own_dyn_control(:, g3_dyn))), ...
-    mean(mean(own_dyn_noise(:, g3_dyn))) - ...
-    mean(mean(own_dyn_control(:, g3_dyn))), 'vb', 'MarkerSize', 12);
+% plot(mean(mean(own_dyn_control(:, g1_dyn))), ...
+%     mean(mean(own_dyn_noise(:, g1_dyn))) - ...
+%     mean(mean(own_dyn_control(:, g1_dyn))), 'xb', 'MarkerSize', 15);
+% plot(mean(mean(own_dyn_control(:, g2_dyn))), ...
+%     mean(mean(own_dyn_noise(:, g2_dyn))) - ...
+%     mean(mean(own_dyn_control(:, g2_dyn))), 'xb', 'MarkerSize', 15);
+% plot(mean(mean(own_dyn_control(:, g3_dyn))), ...
+%     mean(mean(own_dyn_noise(:, g3_dyn))) - ...
+%     mean(mean(own_dyn_control(:, g3_dyn))), 'vb', 'MarkerSize', 12);
 
 hold on; box on;
 
-xlabel('Basal dynamic', 'FontWeight', 'bold', 'FontSize', 12);
-ylabel('(Noise dynamic - basal dynamic)', 'FontWeight', 'bold', 'FontSize', 12);
-title('Sense of ownership', 'FontWeight', 'bold', 'FontSize', 13);
+xlabel('Basal dynamic');
+ylabel('Noise dynamic');
+set(gca, 'XTick', 1:1:7, 'XTickLabel', 1:1:7);
+title('Sense of ownership', 'FontWeight', 'bold');
 
+%%
 %%%
 % Panel D - GSR
 %%%
@@ -492,7 +530,10 @@ set(fig5, 'units', 'centimeters', 'position', [5 0.2 18.0 30.0]);
 %%%
 % PANEL A - Sense of ownership - static
 %%%
-subplot('Position', [0.075 0.71 0.37 0.22]); hold on;
+fig2 = figure(5); clf;
+set(fig2, 'units', 'centimeters', 'position', [5 5 9.0 9.0]);
+
+subplot('Position', [0.13, 0.15, 0.77, 0.65]); hold on;
 line([4 4], [0 8], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
 
 p(1) = plot(edge, hist(own_stat_nogap(:), edge)/numel(own_stat_nogap), ...
@@ -516,7 +557,7 @@ set(gca, 'YTick', 0.1:0.1:0.4, 'YTickLabel', ...
     {'0.1', '0.2', '0.3', '0.4'}, ...
     'Fontsize', 9);
 
-subplot('Position', [0.075 0.93 0.37 0.03]); hold on;
+subplot('Position', [0.13, 0.8, 0.77, 0.1]); hold on;
 line([0 4], [4 4], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
 b(1) = bar(1, mean(own_stat_nogap(:)), 0.5); 
 b(2) = bar(2, mean(own_stat_gap(:)), 0.5); 
@@ -538,39 +579,49 @@ title('Sense of ownership', 'FontWeight', 'bold', 'FontSize', 13);
 line([1 2], [6.5 6.5], 'Color', 'black');
 text(1.5, 6.65, '*', 'FontWeight', 'bold', 'FontSize', 12); box on;
 
+%%
 %%%%
 % PANEL B - Correlations
 %%%%
-subplot('Position', [0.55 0.71 0.37 0.25]); hold on;
-ylim([-5 5]); xlim([0.5 7.5]);
+fig2 = figure(5); clf;
+set(fig2, 'units', 'centimeters', 'position', [5 5 9.0 9.0]);
+subplot('Position', [0.13, 0.15, 0.77, 0.75]); hold on;
+ylim([0.5 7.5]); xlim([0.5 7.5]);
 
-line([0 8], [0 0], 'LineStyle', ':');
-line([3 3], [-5 5], 'LineStyle', ':');
-line([5 5], [-5 5], 'LineStyle', ':');
+line([0 8], [0 8], 'LineStyle', ':', 'color', [220/255 220/255 220/255]);
+line([3 3], [0 3], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1); line([0 3], [3 3], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1);
+line([5 5], [0 5], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1); line([0 5], [5 5], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1);
 
-plot(mean(own_stat_nogap), mean(own_stat_gap) - mean(own_stat_nogap), ...
+plot(mean(own_stat_nogap), mean(own_stat_gap), ...
     '.k', 'MarkerSize', 15);
-plot(mean(mean(own_stat_nogap(:, g1_stat))), ...
-    mean(mean(own_stat_gap(:, g1_stat))) - ...
-    mean(mean(own_stat_nogap(:, g1_stat))), 'xb', 'MarkerSize', 15);
-plot(mean(mean(own_stat_nogap(:, g2_stat))), ...
-    mean(mean(own_stat_gap(:, g2_stat))) - ...
-    mean(mean(own_stat_nogap(:, g2_stat))), 'xb', 'MarkerSize', 15);
-plot(mean(mean(own_stat_nogap(:, g3_stat))), ...
-    mean(mean(own_stat_gap(:, g3_stat))) - ...
-    mean(mean(own_stat_nogap(:, g3_stat))), 'vb', 'MarkerSize', 12);
+% plot(mean(mean(own_stat_nogap(:, g1_stat))), ...
+%     mean(mean(own_stat_gap(:, g1_stat))) - ...
+%     mean(mean(own_stat_nogap(:, g1_stat))), 'xb', 'MarkerSize', 15);
+% plot(mean(mean(own_stat_nogap(:, g2_stat))), ...
+%     mean(mean(own_stat_gap(:, g2_stat))) - ...
+%     mean(mean(own_stat_nogap(:, g2_stat))), 'xb', 'MarkerSize', 15);
+% plot(mean(mean(own_stat_nogap(:, g3_stat))), ...
+%     mean(mean(own_stat_gap(:, g3_stat))) - ...
+%     mean(mean(own_stat_nogap(:, g3_stat))), 'vb', 'MarkerSize', 12);
 
 hold on; box on;
+set(gca, 'XTick', 1:1:7, 'XTickLabel', 1:1:7);
+xlabel('Basal static');
+ylabel('Discontinuity static');
+title('Sense of ownership', 'FontWeight', 'bold');
 
-xlabel('Basal static', 'FontWeight', 'bold', 'FontSize', 12);
-ylabel('(Discontinuity static - basal static)', 'FontWeight', 'bold', 'FontSize', 12);
-title('Sense of ownership', 'FontWeight', 'bold', 'FontSize', 13);
-
-
+%%
 %%%%
 % PANEL C - sense of ownership dynamic
 %%%%
-subplot('Position', [0.075 0.39 0.37 0.22]); hold on;
+fig2 = figure(5); clf;
+set(fig2, 'units', 'centimeters', 'position', [5 5 9.0 9.0]);
+
+subplot('Position', [0.13, 0.15, 0.77, 0.65]); hold on;
 line([4 4], [0 8], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
 
 p(1) = plot(edge, hist(own_dyn_control(:), edge)/numel(own_dyn_control), ...
@@ -594,7 +645,7 @@ set(gca, 'YTick', 0.1:0.1:0.4, 'YTickLabel', ...
     {'0.1', '0.2', '0.3', '0.4'}, ...
     'Fontsize', 9);
 
-subplot('Position', [0.075 0.61 0.37 0.03]); hold on;
+subplot('Position', [0.13, 0.8, 0.77, 0.1]); hold on;
 line([0 4], [4 4], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
 b(1) = bar(1, mean(own_dyn_control(:)), 0.5); 
 b(2) = bar(2, mean(own_dyn_gap(:)), 0.5); 
@@ -611,41 +662,52 @@ xlim([0.5 2.5]); ylim([0.9 7.15]);
 set(gca, 'XTick', [], 'XTickLabel', {'', ''}, ...
     'YTickLabel', {'', '', '', '', '', '', ''}, ... 
     'fontsize', 9);
-title('Sense of ownership', 'FontWeight', 'bold', 'FontSize', 13);
+title('Sense of ownership', 'FontWeight', 'bold');
 
-
+%%
 %%%
 % Panel D - Correlation dynamic
 %%%
-subplot('Position', [0.55 0.39 0.37 0.25]); hold on;
-ylim([-5 5]); xlim([0.5 7.5]);
+fig2 = figure(5); clf;
+set(fig2, 'units', 'centimeters', 'position', [5 5 9.0 9.0]);
 
-line([0 8], [0 0], 'LineStyle', ':');
-line([3 3], [-5 5], 'LineStyle', ':');
-line([5 5], [-5 5], 'LineStyle', ':');
+subplot('Position', [0.13, 0.15, 0.77, 0.75]); hold on;
+ylim([0.5 7.5]); xlim([0.5 7.5]);
 
-plot(mean(own_dyn_control), mean(own_dyn_gap) - mean(own_dyn_control), ...
+line([0 8], [0 8], 'LineStyle', ':', 'color', [220/255 220/255 220/255]);
+line([3 3], [0 3], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1); line([0 3], [3 3], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1);
+line([5 5], [0 5], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1); line([0 5], [5 5], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1);
+
+plot(mean(own_dyn_control), mean(own_dyn_gap), ...
     '.k', 'MarkerSize', 15);
-plot(mean(mean(own_dyn_control(:, g1_dyn))), ...
-    mean(mean(own_dyn_gap(:, g1_dyn))) - ...
-    mean(mean(own_dyn_control(:, g1_dyn))), 'xb', 'MarkerSize', 15);
-plot(mean(mean(own_dyn_control(:, g2_dyn))), ...
-    mean(mean(own_dyn_gap(:, g2_dyn))) - ...
-    mean(mean(own_dyn_control(:, g2_dyn))), 'xb', 'MarkerSize', 15);
-plot(mean(mean(own_dyn_control(:, g3_dyn))), ...
-    mean(mean(own_dyn_gap(:, g3_dyn))) - ...
-    mean(mean(own_dyn_control(:, g3_dyn))), 'vb', 'MarkerSize', 12);
+% plot(mean(mean(own_dyn_control(:, g1_dyn))), ...
+%     mean(mean(own_dyn_gap(:, g1_dyn))) - ...
+%     mean(mean(own_dyn_control(:, g1_dyn))), 'xb', 'MarkerSize', 15);
+% plot(mean(mean(own_dyn_control(:, g2_dyn))), ...
+%     mean(mean(own_dyn_gap(:, g2_dyn))) - ...
+%     mean(mean(own_dyn_control(:, g2_dyn))), 'xb', 'MarkerSize', 15);
+% plot(mean(mean(own_dyn_control(:, g3_dyn))), ...
+%     mean(mean(own_dyn_gap(:, g3_dyn))) - ...
+%     mean(mean(own_dyn_control(:, g3_dyn))), 'vb', 'MarkerSize', 12);
 
 hold on; box on;
+set(gca, 'XTick', 1:1:7, 'XTickLabel', 1:1:7);
+xlabel('Basal dynamic');
+ylabel('Discontinuity dynamic');
+title('Sense of ownership', 'FontWeight', 'bold');
 
-xlabel('Basal dynamic', 'FontWeight', 'bold', 'FontSize', 12);
-ylabel('(Discontinuity dyn - basal dyn)', 'FontWeight', 'bold', 'FontSize', 12);
-title('Sense of ownership', 'FontWeight', 'bold', 'FontSize', 13);
-
+%%
 %%%
 % Panel E - Sense of agency
 %%%
-subplot('Position', [0.075 0.05 0.37 0.22]); hold on;
+fig2 = figure(5); clf;
+set(fig2, 'units', 'centimeters', 'position', [5 5 9.0 9.0]);
+
+subplot('Position', [0.13, 0.15, 0.77, 0.65]); hold on;
 line([4 4], [0 8], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
 
 p(1) = plot(edge, hist(agn_dyn_control(:), edge)/numel(agn_dyn_control), ...
@@ -669,7 +731,7 @@ set(gca, 'YTick', 0.1:0.1:0.8, 'YTickLabel', ...
     {'0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8'}, ...
     'Fontsize', 9);
 
-subplot('Position', [0.075 0.27 0.37 0.03]); hold on;
+subplot('Position', [0.13, 0.8, 0.77, 0.1]); hold on;
 line([0 4], [4 4], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
 b(1) = bar(1, mean(agn_dyn_control(:)), 0.5); 
 b(2) = bar(2, mean(agn_dyn_gap(:)), 0.5); 
@@ -688,6 +750,7 @@ set(gca, 'XTick', [], 'XTickLabel', {'', ''}, ...
     'fontsize', 9);
 title('Sense of agency', 'FontWeight', 'bold', 'FontSize', 13);
 
+%%
 %%%
 % Panel F - GSR
 %%%
@@ -748,3 +811,97 @@ annotation('textbox', [0.45, 0.27, 0.05, 0.05], ...
     'EdgeColor', 'none', ...
     'HorizontalAlignment', 'center', 'VerticalAlignment', 'middle', ...
     'FontSize', 15, 'FontWeight', 'bold');
+
+%%
+
+%% Figure 6 - Effect of discontinuity
+fig5 = figure(5); clf;
+set(fig5, 'units', 'centimeters', 'position', [5 0.2 18.0 30.0]);
+
+%%%
+% PANEL A - Sense of ownership - static
+%%%
+fig = figure(6); clf;
+set(fig, 'units', 'centimeters', 'position', [5 5 9.0 9.0]);
+
+subplot('Position', [0.13, 0.15, 0.77, 0.65]); hold on;
+line([4 4], [0 8], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
+
+p(1) = plot(edge, hist(own_stat_gap(:), edge)/numel(own_stat_gap), ...
+    'color', c(c_o, :), 'LineWidth', 3); 
+p(2) = plot(edge, hist(own_dyn_gap(:), edge)/numel(own_dyn_gap), ...
+    'color', c(c_o - 5, :), 'LineWidth', 3); 
+line([mean(own_stat_gap(:)), mean(own_stat_gap(:))], [-0.1 1.1], ...
+    'color', c(c_o, :));
+line([mean(own_dyn_gap(:)), mean(own_dyn_gap(:))], [-0.1 1.1], ...
+    'color', c(c_o - 5, :)); 
+hold off; box on 
+
+xlim([0.9 7.15]); ylim([0 0.45]);
+legend(p, {'Discontinuous static', 'Discontinuous dynamic'}, 'location', 'northwest', ...
+    'FontSize', 8, 'FontWeight', 'bold');
+ylabel('Probability density', 'FontSize', ...
+    11, 'FontWeight', 'bold');
+xlabel('Responses to questionnaires', 'FontSize', ...
+    11, 'FontWeight', 'bold');
+set(gca, 'YTick', 0.1:0.1:0.4, 'YTickLabel', ...
+    {'0.1', '0.2', '0.3', '0.4'}, ...
+    'Fontsize', 9);
+
+subplot('Position', [0.13, 0.8, 0.77, 0.1]); hold on;
+line([0 4], [4 4], 'color', [220/255 220/255 220/255], 'LineStyle', ':'); 
+b(1) = bar(1, mean(own_stat_gap(:)), 0.5); 
+b(2) = bar(2, mean(own_dyn_gap(:)), 0.5); 
+errorbar([1, 2], [mean(own_stat_gap(:)), mean(own_dyn_gap(:))], [...
+    std(own_dyn_gap(:))/sqrt(numel(own_dyn_gap)), ...
+    std(own_dyn_gap(:))/sqrt(numel(own_dyn_gap))], '.k'); 
+hold off; box on;
+
+set(b(1), 'FaceColor', c(c_o, :));
+set(b(2), 'FaceColor', c(c_o - 5, :));
+view([90 90]);
+
+xlim([0.5 2.5]); ylim([0.9 7.15]);
+set(gca, 'XTick', [], 'XTickLabel', {'', ''}, ...
+    'YTickLabel', {'', '', '', '', '', '', ''}, ... 
+    'fontsize', 9);
+title('Sense of ownership', 'FontWeight', 'bold', 'FontSize', 13);
+
+line([1 2], [6.5 6.5], 'Color', 'black');
+text(1.5, 6.65, '*', 'FontWeight', 'bold', 'FontSize', 12); box on;
+
+%%
+%%%%
+% PANEL B - Correlations
+%%%%
+fig = figure(6); clf;
+set(fig, 'units', 'centimeters', 'position', [5 5 9.0 9.0]);
+subplot('Position', [0.13, 0.15, 0.77, 0.75]); hold on;
+ylim([0.5 7.5]); xlim([0.5 7.5]);
+
+line([0 8], [0 8], 'LineStyle', ':', 'color', [220/255 220/255 220/255]);
+line([3 3], [0 3], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1); line([0 3], [3 3], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1);
+line([5 5], [0 5], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1); line([0 5], [5 5], 'LineStyle', ':', 'color', [220/255 220/255 220/255], ...
+    'LineWidth', 1);
+
+plot(mean(own_stat_gap), mean(own_dyn_gap), ...
+    '.k', 'MarkerSize', 15);
+% plot(mean(mean(own_stat_nogap(:, g1_stat))), ...
+%     mean(mean(own_stat_gap(:, g1_stat))) - ...
+%     mean(mean(own_stat_nogap(:, g1_stat))), 'xb', 'MarkerSize', 15);
+% plot(mean(mean(own_stat_nogap(:, g2_stat))), ...
+%     mean(mean(own_stat_gap(:, g2_stat))) - ...
+%     mean(mean(own_stat_nogap(:, g2_stat))), 'xb', 'MarkerSize', 15);
+% plot(mean(mean(own_stat_nogap(:, g3_stat))), ...
+%     mean(mean(own_stat_gap(:, g3_stat))) - ...
+%     mean(mean(own_stat_nogap(:, g3_stat))), 'vb', 'MarkerSize', 12);
+
+hold on; box on;
+
+set(gca, 'XTick', 1:1:7, 'XTickLabel', 1:1:7);
+xlabel('Discontinuity static');
+ylabel('Discontinuity dynamic');
+title('Sense of ownership', 'FontWeight', 'bold');

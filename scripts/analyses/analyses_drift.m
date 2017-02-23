@@ -10,6 +10,7 @@ position1 = [0.15, 0.5, 0.8, 0.4];
 position2 = [0.15, 0.1, 0.8, 0.4];
 
 fig1 = figure(1); clf,
+
 % subplot('Position', position1);
 % 
 % c = parula;
@@ -49,14 +50,15 @@ c = parula;
 c  =  c([1 6 11 16 42 47 52 57], :);
 
 cla; hold on;
-plot(nanmean(diff_position(:, 1:6)) * 100, '.', 'Color', c(6, :), 'MarkerSize', 25);
+plot(nanmean(diff_position(:, 1:6)) * 100, '.', 'Color', c(6, :), 'MarkerSize', 18);
 
 plot([1 2],[0 0], 'LineStyle', ':', 'color', ...
     [150/256 150/256 150/256], 'LineWidth', 2.5);
 plot([3 6],[10 10], 'LineStyle', ':', 'color', ...
     [150/256 150/256 150/256], 'LineWidth', 2.5);
 
-legend ({'perceived difference', 'real difference'}, 'location', 'northwest', 'FontSize', 16);
+legend ({'perceived difference', 'real difference'}, ...
+    'location', 'northwest');
 
 for i = 1:6  
     errorbar(i, nanmean(diff_position(:, i)) * 100, ...
@@ -66,16 +68,14 @@ end
 
 ylim([-3 11]);
 % title('Proprioceptive Drift', 'FontWeight', 'bold', 'FontSize', 19);
-xlabel('Condition', 'fontsize', 17, 'FontWeight', 'bold');
-ylabel('Real - Perceived Position [cm]', 'fontsize', 17, 'FontWeight', 'bold');
-set(gca, 'XTick', 1:6);
-set(gca, 'XTickLabel', {'T' 'D1' 'D2' 'D3' 'D4' 'D5'}, 'FontSize', 14);
-
+xlabel('Condition');
+ylabel('Real - Perceived Position [cm]');
+set(gca, 'XTick', 1:6, 'XTickLabel', {'H' 'NO' 'B' 'OR' 'G' 'N'});
+xlim([0.5 6.5]);
 line([5 6], [8 8], 'Color', 'black');
-text(5.5, 8.25, '*', 'FontSize', 15, 'FontWeight', 'bold'); hold off; box on;
-
-
-set(fig1,'units','normalized', 'Position', [0.3 0.02 0.325 0.45]);
+text(5.5, 8.25, '*', 'FontSize', 13, 'FontWeight', 'bold'); hold off; box on;
+title('Proprioceptive drift', 'fontweight', 'bold')
+set(fig1, 'units', 'centimeters', 'position', [5 5 9.0 9.0]);
 
 
 %% Set variables 

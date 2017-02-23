@@ -137,23 +137,26 @@ annotation('textbox', [0.03, 0.575 + 0.325, 0.05, 0.05], ...
 fig3 = figure(3); clf;
 set(fig3, 'units', 'centimeters', 'position', [5 5 18.0 20.0]);
 
+diff_position = handp_ - drift_;
+diff_position(6,2) = NaN;
+
 % Panel 1 - Proprioceptive drift
 subplot('Position', [0.075, 0.575, 0.37, 0.35]); hold on;
 
 plot(nanmean(diff_position(:, 1:6)) * 100, '.', 'Color', ...
     c(15, :), 'MarkerSize', 15);
 
-plot([1 2],[0 0], 'LineStyle', ':', 'color', ...
-    [150/256 150/256 150/256], 'LineWidth', 2.5);
-plot([3 6],[10 10], 'LineStyle', ':', 'color', ...
-    [150/256 150/256 150/256], 'LineWidth', 2.5);
+% plot([1 2],[0 0], 'LineStyle', ':', 'color', ...
+%     [150/256 150/256 150/256], 'LineWidth', 2.5);
+% plot([3 6],[10 10], 'LineStyle', ':', 'color', ...
+%     [150/256 150/256 150/256], 'LineWidth', 2.5);
 
 legend ({'perceived difference', 'real difference'}, ...
     'location', 'northwest', 'FontSize', 8);
 
 for i = 1:6  
     errorbar(i, nanmean(diff_position(:, i)) * 100, ...
-        nanstd(diff_position(:, i) * 100) /sqrt(20), ...
+        nanstd(diff_position(:, i) * 100)/sqrt(20), ...
         'Color', c(15, :));
 end
 
@@ -164,7 +167,7 @@ xlabel('Condition', 'fontsize', 11, 'FontWeight', 'bold');
 ylabel('Real - Perceived Position [cm]', 'fontsize', 11, 'FontWeight', 'bold');
 set(gca, 'XTick', 1:6, 'XTickLabel', {'T' 'N-O' 'Bsl' 'OnR' 'Dsc' 'Ns'}, ...
     'FontSize', 9);
-line([5 6], [7 7], 'Color', 'black'); text(5.5, 7.25, '*', 'FontSize', 13, 'FontWeight', 'bold'); 
+% line([5 6], [7 7], 'Color', 'black'); text(5.5, 7.25, '*', 'FontSize', 13, 'FontWeight', 'bold'); 
 
 set(gca, 'XTick', 1:6, 'XTickLabel', {'T' 'N-O' 'Bsl' 'OnR' 'Dsc' 'Ns'}, ...
     'FontSize', 9);
@@ -238,6 +241,8 @@ set(gca, 'XTick', 0:10:100, 'XTickLabel', -5:1:5, 'fontsize', 9);
 xlabel('Time to threat', 'fontsize', 11, 'FontWeight', 'bold');
 ylabel('Normalization', 'fontsize', 12, 'FontWeight', 'bold');
 title('Reaction to threat', 'fontsize', 13, 'fontweight', 'bold');
+
+
 %%
 
 fig3 = figure(3); clf;

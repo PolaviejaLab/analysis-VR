@@ -17,3 +17,5 @@ perc_fem = n_females/nParticipants * 100;
 % age
 age_array = sociodem_table(:, age_aux);
 mean_age = mean(age_array);
+
+std_age = std(age_array);

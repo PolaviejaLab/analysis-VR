@@ -25,9 +25,9 @@ group3d = find(mean(own_dyn_control) >= 5);
 ii = 10000;
  
 df_mn = abs([...
-    mean(mean(own_dyn_gap(:, group1s))) - mean(mean(own_stat_gap(:, group1s)));
-    mean(mean(own_dyn_gap(:, group2s))) - mean(mean(own_stat_gap(:, group2s)));
-    mean(mean(own_dyn_gap(:, group3s))) - mean(mean(own_stat_gap(:, group3s)))
+    mean(mean(own_dyn_control(:, group1d))) - mean(mean(own_dyn_noise(:, group1d)));
+    mean(mean(own_dyn_control(:, group2d))) - mean(mean(own_dyn_noise(:, group2d)));
+    mean(mean(own_dyn_control(:, group3d))) - mean(mean(own_dyn_noise(:, group3d)))
     ]);
 
 % within group
@@ -54,9 +54,9 @@ vec_cmp = repmat(df_mn, 1, ii);
 vec_res = zeros(3, ii);
 
 aux_vc = [...
-        mean(own_dyn_gap(:, group1s)) - mean(own_stat_gap(:, group1s)), ...
-        mean(own_dyn_gap(:, group2s)) - mean(own_stat_gap(:, group2s)), ...
-        mean(own_dyn_gap(:, group3s)) - mean(own_stat_gap(:, group3s))
+        mean(own_dyn_control(:, group1d)) - mean(own_dyn_noise(:, group1d)), ...
+        mean(own_dyn_control(:, group2d)) - mean(own_dyn_noise(:, group2d)), ...
+        mean(own_dyn_control(:, group3d)) - mean(own_dyn_noise(:, group3d))
         ];
 
 for i = 1:ii

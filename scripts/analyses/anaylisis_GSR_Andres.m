@@ -24,8 +24,8 @@ end
 pv = sum(abs(amp_res) > amp_cmp, 2)/10000
 
 figure,plot(mean(data,2),'k' , 'linewidth', 2), hold on
-% plot(std(data,1,2)/sqrt(20)+mean(data,2), 'k', 'linewidth', 1)
-% plot(-std(data,1,2)/sqrt(20)+mean(data,2), 'k', 'linewidth', 1)
+plot(std(data,1,2)/sqrt(20)+mean(data,2), 'k', 'linewidth', 1)
+plot(-std(data,1,2)/sqrt(20)+mean(data,2), 'k', 'linewidth', 1)
 
 data_cum1 = data;
 cum = 0;
@@ -58,8 +58,8 @@ end
 pv = sum(abs(amp_res) > amp_cmp, 2)/10000
 
 plot(mean(data,2), 'b', 'linewidth', 2)
-% plot(std(data,1,2)/sqrt(20)+mean(data,2), 'b', 'linewidth', 1)
-% plot(-std(data,1,2)/sqrt(20)+mean(data,2), 'b', 'linewidth', 1)
+plot(std(data,1,2)/sqrt(20)+mean(data,2), 'b', 'linewidth', 1)
+plot(-std(data,1,2)/sqrt(20)+mean(data,2), 'b', 'linewidth', 1)
 
 
 data_cum2 = data;
@@ -95,8 +95,8 @@ pv = sum(abs(amp_res) > amp_cmp, 2)/10000
 
 
 plot(mean(data,2), 'r', 'linewidth', 2)
-% plot(std(data,1,2)/sqrt(19)+mean(data,2), 'r', 'linewidth', 1)
-% plot(-std(data,1,2)/sqrt(19)+mean(data,2), 'r', 'linewidth', 1)
+plot(std(data,1,2)/sqrt(19)+mean(data,2), 'r', 'linewidth', 1)
+plot(-std(data,1,2)/sqrt(19)+mean(data,2), 'r', 'linewidth', 1)
 
 
 % Cumulative
@@ -134,8 +134,8 @@ pv = sum(abs(amp_res) > amp_cmp, 2)/10000
 
 
 plot(mean(data,2), 'g', 'linewidth', 2)
-% plot(std(data,1,2)/sqrt(19)+mean(data,2), 'g', 'linewidth', 1)
-% plot(-std(data,1,2)/sqrt(19)+mean(data,2), 'g', 'linewidth', 1)
+plot(std(data,1,2)/sqrt(19)+mean(data,2), 'g', 'linewidth', 1)
+plot(-std(data,1,2)/sqrt(19)+mean(data,2), 'g', 'linewidth', 1)
 
 data_cum4 = data;
 cum = 0;
@@ -149,19 +149,19 @@ end
 
 %% 
 
-figure,plot(mean(data_cum1,2),'k' , 'linewidth', 2), hold on
-plot(std(data_cum1,1,2)/sqrt(20)+mean(data_cum1,2), 'k', 'linewidth', 1)
-plot(-std(data_cum1,1,2)/sqrt(20)+mean(data_cum1,2), 'k', 'linewidth', 1)
-
-plot(mean(data_cum2,2), 'b', 'linewidth', 2)
-plot(std(data_cum2,1,2)/sqrt(20)+mean(data_cum2,2), 'b', 'linewidth', 1)
-plot(-std(data_cum2,1,2)/sqrt(20)+mean(data_cum2,2), 'b', 'linewidth', 1)
-
-plot(mean(data_cum3,2), 'r', 'linewidth', 2)
-plot(std(data_cum3,1,2)/sqrt(19)+mean(data_cum3,2), 'r', 'linewidth', 1)
-plot(-std(data_cum3,1,2)/sqrt(19)+mean(data_cum3,2), 'r', 'linewidth', 1)
-
-plot(mean(data_cum4,2), 'g', 'linewidth', 2)
-plot(std(data_cum4,1,2)/sqrt(19)+mean(data_cum4,2), 'g', 'linewidth', 1)
-plot(-std(data_cum4,1,2)/sqrt(19)+mean(data_cum4,2), 'g', 'linewidth', 1)
+% figure,plot(mean(data_cum1,2),'k' , 'linewidth', 2), hold on
+% plot(std(data_cum1,1,2)/sqrt(20)+mean(data_cum1,2), 'k', 'linewidth', 1)
+% plot(-std(data_cum1,1,2)/sqrt(20)+mean(data_cum1,2), 'k', 'linewidth', 1)
+% 
+% plot(mean(data_cum2,2), 'b', 'linewidth', 2)
+% plot(std(data_cum2,1,2)/sqrt(20)+mean(data_cum2,2), 'b', 'linewidth', 1)
+% plot(-std(data_cum2,1,2)/sqrt(20)+mean(data_cum2,2), 'b', 'linewidth', 1)
+% 
+% plot(mean(data_cum3,2), 'r', 'linewidth', 2)
+% plot(std(data_cum3,1,2)/sqrt(19)+mean(data_cum3,2), 'r', 'linewidth', 1)
+% plot(-std(data_cum3,1,2)/sqrt(19)+mean(data_cum3,2), 'r', 'linewidth', 1)
+% 
+% plot(mean(data_cum4,2), 'g', 'linewidth', 2)
+% plot(std(data_cum4,1,2)/sqrt(19)+mean(data_cum4,2), 'g', 'linewidth', 1)
+% plot(-std(data_cum4,1,2)/sqrt(19)+mean(data_cum4,2), 'g', 'linewidth', 1)
 

@@ -9,6 +9,7 @@ dataDirectory = 'V:\Data\04. Exp1_Frontiers';
 filesSubjects = dir(fullfile(dataDirectory, 'Subject*'));
 
 n_subjects = size(filesSubjects, 1);
+f_end = 75;
 
 % load
 cacheDirectory = 'E:\GitHub\analysis-VR\cache';
@@ -75,7 +76,7 @@ for i_subject = 1:n_subjects
     end
     
     % plot
-    f_end = 40;
+    
     figure, plot(trajectories{1}.(fileName)(1:f_end, 1), trajectories{1}.(fileName)(1:f_end, 3)); hold on
     plot(trajectories{2}.(fileName)(1:f_end, 1), trajectories{2}.(fileName)(1:f_end, 3), 'r')
     plot(trajectories{3}.(fileName)(1:f_end, 1), trajectories{3}.(fileName)(1:f_end, 3), 'g')
@@ -98,11 +99,93 @@ figure,
 offset = 00;
 for i = 1:size(names,1)
     plot(trajectories{2}.(char(names(i)))(1:f_end, 1) + offset, trajectories{2}.(char(names(i)))(1:f_end, 3), 'b'); hold on
-%     plot(trajectories{2}.(char(names(i)))(1, 1) + offset, trajectories{2}.(char(names(i)))(1, 3), 'ob');
+    plot(trajectories{2}.(char(names(i)))(1, 1) + offset, trajectories{2}.(char(names(i)))(1, 3), 'xb');
 %     plot(trajectories{2}.(char(names(i)))(f_end, 1) + offset, trajectories{2}.(char(names(i)))(f_end, 3), 'xb');
     plot(trajectories{3}.(char(names(i)))(1:f_end, 1), trajectories{3}.(char(names(i)))(1:f_end, 3), 'r');
-%     plot(trajectories{3}.(char(names(i)))(1, 1), trajectories{3}.(char(names(i)))(1, 3), 'or');
+    plot(trajectories{3}.(char(names(i)))(1, 1), trajectories{3}.(char(names(i)))(1, 3), 'xr');
 %     plot(trajectories{3}.(char(names(i)))(f_end, 1), trajectories{3}.(char(names(i)))(f_end, 3), 'xr');
 end
 
+
+%% velocity
+
+v_basal = zeros(74, 19);
+for i = 1:size(names,1)
+x = trajectories{1}.(char(names(i)))(1:f_end, 1);
+y = trajectories{1}.(char(names(i)))(1:f_end, 3);
+v = sqrt((x(2:end)-x(1:end-1)).*(x(2:end)-x(1:end-1)) + (y(2:end)-y(1:end-1)).*(y(2:end)-y(1:end-1)));
+v_basal(:, i) = v;
+end
+
+
+v_onreal = zeros(74, 19);
+for i = 1:size(names,1)
+x = trajectories{3}.(char(names(i)))(1:f_end, 1);
+y = trajectories{3}.(char(names(i)))(1:f_end, 3);
+v = sqrt((x(2:end)-x(1:end-1)).*(x(2:end)-x(1:end-1)) + (y(2:end)-y(1:end-1)).*(y(2:end)-y(1:end-1)));
+v_onreal(:, i) = v;
+end
+
+
+
+% plot mean velocity and std
+figure, hold on, 
+p(1) = plot(nanmean(v_basal, 2), 'linewidth', 2), 
+plot(nanmean(v_basal, 2) + nanstd(v_basal, 1, 2))
+plot(nanmean(v_basal, 2) - nanstd(v_basal, 1, 2))
+p(2) = plot(nanmean(v_onreal, 2), 'linewidth', 2, 'color', 'r'),
+plot(nanmean(v_onreal, 2) + nanstd(v_onreal, 1, 2), 'r')
+plot(nanmean(v_onreal, 2) - nanstd(v_onreal, 1, 2), 'r')
+legend(p, {'basal dynamic', 'on real'})
+line([30, 30], [-2, 3], 'color', 'k');
+xlim([0 70]);
+ylabel('velocity [cm/frame]');
+xlabel('frames' );
+title('velocity', 'fontweight', 'bold');
+hold off, box on
+
+
+addpath('E:\GitHub\analysis-VR\scripts\statistics');
+for kk = 1:74
+    stat_frame(kk)  = stat_bootstrapping(10000, v_basal(kk, :), v_onreal(kk, :));   
+end
+
+
+
+
+m_basal = nanmean(v_basal, 2);
+
+diff_means = nanmean(m_basal([1:34 56:74], :)') - nanmean(m_basal(35:55,:)');
+
+vec_comp = repmat(diff_means, 1, 10000);
+vec_res = zeros(1, 10000);
+
+for i = 1:10000
+    i_rand = randperm(size(m_basal, 2)); 
+    
+        vec_perm = m_basal(1, i_rand);
+        vec_res(i) = nanmean(m_basal([1:34 56:74])) - nanmean(m_basal(35:55));
+    
+end
+
+pval_basal = sum(abs(vec_res) > vec_comp, 2)/10000;
+
+
+
+m_onreal = nanmean(v_onreal, 2);
+
+diff_means = nanmean(m_onreal([1:34 56:74], :)') - nanmean(m_onreal(35:55,:)');
+
+vec_comp = repmat(diff_means, 1, 10000);
+vec_res = zeros(1, 10000);
+
+for i = 1:10000
+    i_rand = randperm(size(m_onreal, 2)); 
+    
+        vec_perm = m_onreal(1, i_rand);
+        vec_res(i) = nanmean(m_onreal([1:34 56:74])) - nanmean(m_onreal(35:55));
+    
+end
+
+pval_onreal = sum(abs(vec_res) > vec_comp, 2)/10000;
 

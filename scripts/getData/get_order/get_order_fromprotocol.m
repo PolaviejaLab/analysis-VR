@@ -1,19 +1,23 @@
-function [indx] = get_order_fromprotocol (unityFolder)
+function [order] = get_order_fromprotocol (unityFolder)
+
+gitFolder = 'E:\GitHub\Victoria-Discontinuity\';
 
 % get number of protocol from the log file
 file_log = dir(fullfile(unityFolder, '*.log'));
 fileName_log = fullfile(unityFolder, file_log.name);
 
 fid = fopen(fileName_log);
-m_ = textscan(fid, '%q %s %s');
-indx = strcmp('Protocol file*', m_{3});
+m_ = textscan(fid, '%q %s %s', 'Delimiter', '\t');
+indx = strmatch('Protocol file', m_{3});
 
+str_ = strsplit(char(m_{3}(indx)));
+file = str_{3}
 
+protocol_file = fullfile(gitFolder, file);
 
-% get the number of trial 
-% fid = '\GitHub\Victoria-Discontinuity\Protocol\Exp2_Experiment\prueba_77.txt'
+fid =protocol_file;
 
-% [~, ~, order] = tblread(fid);
-% order = str2double(order)';
+[~, ~, order] = tblread(fid);
+
 end
 

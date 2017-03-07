@@ -10,7 +10,7 @@ nSubjects = length(filesSubjects);
 static_array = zeros (8, 2, nSubjects);     % 2 static conditions
 dynamic_array = zeros (14, 7, nSubjects);   % 7 dynamic conditions
 
-for i_s = 1:nSubjects
+for i_s = 1:1 %nSubjects
     
     % folders
     subjectFolder = fullfile(dataDirectory, filesSubjects(i_s).name, '\');
@@ -29,15 +29,15 @@ for i_s = 1:nSubjects
     
     % get order
     addpath('get_order');
-    [order] = get_order(unityFolder);
-    
-    % order tables
-    m_static = m_static(order(:, 1:2));
-    m_dynamic = m_dynamic(order(:, 4:10));
-    
-    static_array(:, :, i_s) = m_static;
-    dynamic_array(:, :, i_s) = m_dynamic;
-    
+    [order] = get_order_fromprotocol(unityFolder);
+%     
+%     % order tables
+%     m_static = m_static(order(:, 1:2));
+%     m_dynamic = m_dynamic(order(:, 4:10));
+%     
+%     static_array(:, :, i_s) = m_static;
+%     dynamic_array(:, :, i_s) = m_dynamic;
+%     
 end
 
 end

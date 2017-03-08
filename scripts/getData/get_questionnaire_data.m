@@ -30,7 +30,7 @@ for i_s = 1:nSubjects
     m_dynamic = csvread(fileName_dynamic);
     
     % get order
-    addpath('get_order');
+    addpath('getData\get_order\');
     [order] = get_order_fromprotocol(unityFolder);
     order = str2num(order)';
     

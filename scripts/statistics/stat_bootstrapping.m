@@ -4,7 +4,7 @@ function [pval] = stat_bootstrapping (iterations, array1, array2)
 %
 % Not using absolute values
 
-diff_means = nanmean(array1) - nanmean(array2);
+diff_means = abs(nanmean(array1) - nanmean(array2));
 n_comp = size(array1, 1);                           % n_rows
 
 vec_values = [array1 array2];

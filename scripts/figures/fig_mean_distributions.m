@@ -25,7 +25,7 @@ line([3 3], [0 8], 'color', 'k');
 %     'FontWeight', 'bold', 'FontSize', 14); 
 xlim([0.5 2.5]); ylim([0.9 7.15]);
 set(gca, 'XTick', [], 'XTickLabel', {'', ''}, 'YTick', 1:1:7, 'Fontsize', 9);
-title('Sense of ownership', 'FontWeight', 'bold');
+title('Sense of agency', 'FontWeight', 'bold');
 
 subplot('Position', [0.13, 0.15, 0.77, 0.65]); hold on;
 line([4 4], [0 8], 'color', [220/255 220/255 220/255], 'LineStyle', ':', ...

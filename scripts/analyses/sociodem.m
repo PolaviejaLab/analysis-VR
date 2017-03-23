@@ -19,3 +19,6 @@ age_array = sociodem_table(:, age_aux);
 mean_age = mean(age_array);
 
 std_age = std(age_array);
+
+% save arrays
+save('..\data\sociodem.mat', 'age_array', 'gender_array');

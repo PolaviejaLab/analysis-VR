@@ -1,9 +1,13 @@
-load('..\..\data\arrays_ownstat.mat');
-load('..\..\data\arrays_owndyn.mat');
+% LOAD DATA
+load('..\..\..\data\arrays_ownstat.mat');
+load('..\..\..\data\arrays_owndyn.mat');
 
-addpath('..\statistics\');
+% ADD PATHS
+addpath('..\..\statistics\');
 
-% define the groups
+%% Analysis by groups
+
+% DEFINE GROUPS
 statLow = find(mean(own_stat_nogap) <= 3);
 statMed = find(mean(own_stat_nogap) > 3 & mean(own_stat_nogap) < 5);
 statHig = find(mean(own_stat_nogap) >= 5);
@@ -22,3 +26,4 @@ pval = [...
     stat_bygroups(it, dynLow, dynMed, dynHig, own_dyn_control, own_dyn_gap), ...
     stat_bygroups(it, dynLow, dynMed, dynHig, own_dyn_control, own_dyn_noise), ...
     ];
+

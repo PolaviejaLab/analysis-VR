@@ -1,4 +1,4 @@
-function [pval] = stat_bootstrapping (iterations, array1, array2)
+function [pval] = permutationAnalysis(iterations, array1, array2)
 % STAT_BOOTSTRAPPING takes the number of iterations and compares de means
 % of the two arrays. 
 %

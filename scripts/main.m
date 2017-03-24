@@ -291,3 +291,75 @@ fig_mean_distributions(5, reshape(squeeze(dyn_y(qo, 1, :)), 1, 4*8), ... % basal
 
 fig_mean_distributions(6, reshape(squeeze(dyn_y(qo, 3, :)), 1, 4*8), ... % discon dynamic age
     reshape(squeeze(dyn_o(qo, 3, :)), 1, 4*4), 6);
+
+
+%% DYNAMIC - NOISE Outcome
+
+% statistical analyses
+permOwn_all = permutationAnalysis(10000, ...
+    reshape(squeeze(dynArray(qo, 1, :)), 1, 4*12), ...
+    reshape(squeeze(dynArray(qo, 5, :)), 1, 4*12)); % ownership
+
+[~,ksOwn_all] = kstest2(reshape(squeeze(dynArray(qo, 1, :)), 1, 4*12), ...
+    reshape(squeeze(dynArray(qo, 5, :)), 1, 4*12)); % ownership
+
+% groups analysis
+[r,pcorr] = corrcoef(mean(squeeze(dynArray(qo, 1, :))), ...
+    mean(squeeze(dynArray(qo, 5, :))));
+
+permGroups = permutation_byGroups(10000, dynLow, dynMed, dynHig, ...
+    squeeze(dynArray(qo, 1, :)), ...
+    squeeze(dynArray(qo, 5, :)));
+
+% age analysis
+permOwn_y = permutationAnalysis_diffSize(10000, ... % under 40
+    reshape(squeeze(dyn_y(qo, 1, :)), 1, 4*8), ...
+    reshape(squeeze(dyn_y(qo, 5, :)), 1, 4*8));
+
+permOwn_o = permutationAnalysis_diffSize(10000, ... % over 40
+    reshape(squeeze(dyn_o(qo, 1, :)), 1, 4*4), ...
+    reshape(squeeze(dyn_o(qo, 5, :)), 1, 4*4));
+
+permOwn_agebas = permutationAnalysis_diffSize(10000, ... % basal dynamic age
+    reshape(squeeze(dyn_y(qo, 1, :)), 1, 4*8), ...
+    reshape(squeeze(dyn_o(qo, 1, :)), 1, 4*4));
+
+permOwn_ageman = permutationAnalysis_diffSize(10000, ... % discon dynamic age
+    reshape(squeeze(dyn_y(qo, 5, :)), 1, 4*8), ...
+    reshape(squeeze(dyn_o(qo, 5, :)), 1, 4*4));
+
+[~,ksOwn_y] = kstest2(reshape(squeeze(dyn_y(qo, 1, :)), 1, 4*8), ... % under 40
+    reshape(squeeze(dyn_y(qo, 5, :)), 1, 4*8));
+
+[~,ksOwn_o] = kstest2(reshape(squeeze(dyn_o(qo, 1, :)), 1, 4*4), ... % over 40
+    reshape(squeeze(dyn_o(qo, 5, :)), 1, 4*4));
+
+[~,ksOwn_agebas] = kstest2(reshape(squeeze(dyn_y(qo, 1, :)), 1, 4*8), ... % basal dynamic age
+    reshape(squeeze(dyn_o(qo, 1, :)), 1, 4*4));
+
+[~,ksOwn_ageman] = kstest2(reshape(squeeze(dyn_y(qo, 5, :)), 1, 4*8), ... % discon dynamic age
+    reshape(squeeze(dyn_o(qo, 5, :)), 1, 4*4));
+
+% plot the figures
+fig_mean_distributions(1, ...                               % all_questionnaire
+    reshape(squeeze(dynArray(qo, 1, :)), 1, 4*12), ...
+    reshape(squeeze(dynArray(qo, 5, :)), 1, 4*12), 6);
+
+fig = figure(2); clf;                                       %  correlation
+set(fig, 'units', 'centimeters', 'position', [5 5 9.0 9.0]);
+plot(mean(squeeze(dynArray(qo, 1, :))), ...
+    mean(squeeze(dynArray(qo, 5, :))), 'ok'); hold on,
+line([0 8], [0 8]);
+xlim([0.5 7.5]);  ylim([0.5 7.5]);
+
+fig_mean_distributions(3, reshape(squeeze(dyn_y(qo, 1, :)), 1, 4*8), ... % under 40
+    reshape(squeeze(dyn_y(qo, 5, :)), 1, 4*8), 6);
+
+fig_mean_distributions(4, reshape(squeeze(dyn_o(qo, 1, :)), 1, 4*4), ... % over 40
+    reshape(squeeze(dyn_o(qo, 5, :)), 1, 4*4), 6);
+
+fig_mean_distributions(5, reshape(squeeze(dyn_y(qo, 1, :)), 1, 4*8), ... % basal dynamic age
+    reshape(squeeze(dyn_o(qo, 1, :)), 1, 4*4), 6);
+
+fig_mean_distributions(6, reshape(squeeze(dyn_y(qo, 5, :)), 1, 4*8), ... % discon dynamic age
+    reshape(squeeze(dyn_o(qo, 5, :)), 1, 4*4), 6);

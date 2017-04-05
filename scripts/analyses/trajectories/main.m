@@ -16,11 +16,7 @@ files_hands = dir(cacheDirectory);
 
 %%
 
-% [trajectories] = ...
-%     get_trajectories(n_subjects, filesSubjects, dataDirectory, cacheDirectory);
-
-
-for i_subject = 1:n_subjects 
+for i_subject = 1:n_subjects
     % subject folder
     subjectFolder = fullfile(dataDirectory, filesSubjects(i_subject).name, '\');
     unityFolder = fullfile(dataDirectory, filesSubjects(i_subject).name, '\Unity_Files\');
@@ -74,12 +70,20 @@ for i_subject = 1:n_subjects
         hands_trial = hands_(start_(1):end_(1), :) * 100;
         
         % put in a struc
-        trajectories{order_dyn(i_t - 3)}.(fileName) = hands_trial;  
+        trajectories{order_dyn(i_t - 3)}.(fileName) = hands_trial;
     end
     
-
-
-
+    % plot
+    figure, hold on,
+    % plot(trajectories{1}.(fileName)(:, 1), trajectories{1}.(fileName)(:, 3));
+    plot(trajectories{2}.(fileName)(:, 1), trajectories{2}.(fileName)(:, 3), 'r');
+    % plot(trajectories{3}.(fileName)(:, 1), trajectories{3}.(fileName)(:, 3), 'g');
+    plot(trajectories{4}.(fileName)(:, 1), trajectories{4}.(fileName)(:, 3), 'k');
+    plot(trajectories{5}.(fileName)(:, 1), trajectories{5}.(fileName)(:, 3), 'c');
+    hold off, box on;
+    xlim([-20 20]); ylim([-13 13])
+    
+    
 end
 
 

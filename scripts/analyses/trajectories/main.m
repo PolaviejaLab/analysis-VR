@@ -317,12 +317,3 @@ end
 %     vec_res(i) = nanmean(m_onreal([1:34 56:74])) - nanmean(m_onreal(35:55));
 % end
 % pval_onreal = sum(abs(vec_res) > vec_comp, 2)/10000;
-%
-%
-%
-%
-%
-%
-%
-%
-

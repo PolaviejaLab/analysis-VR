@@ -23,9 +23,9 @@ amp_res(1, i) = mean(max(vec_perm(46:100, :)) - mean(vec_perm(42:44, :)));
 end
 pv = sum(abs(amp_res) > amp_cmp, 2)/10000
 
-figure,plot(mean(data,2),'k' , 'linewidth', 2), hold on
-plot(std(data,1,2)/sqrt(20)+mean(data,2), 'k', 'linewidth', 1)
-plot(-std(data,1,2)/sqrt(20)+mean(data,2), 'k', 'linewidth', 1)
+figure,plot(mean(data,2),'r' , 'linewidth', 2), hold on
+plot(std(data,1,2)/sqrt(20)+mean(data,2), 'r', 'linewidth', 1)
+plot(-std(data,1,2)/sqrt(20)+mean(data,2), 'r', 'linewidth', 1)
 
 data_cum1 = data;
 cum = 0;
@@ -57,9 +57,9 @@ amp_res(1, i) = mean(max(vec_perm(46:100, :)) - mean(vec_perm(42:44, :)));
 end
 pv = sum(abs(amp_res) > amp_cmp, 2)/10000
 
-plot(mean(data,2), 'b', 'linewidth', 2)
-plot(std(data,1,2)/sqrt(20)+mean(data,2), 'b', 'linewidth', 1)
-plot(-std(data,1,2)/sqrt(20)+mean(data,2), 'b', 'linewidth', 1)
+plot(mean(data,2), 'k', 'linewidth', 2)
+plot(std(data,1,2)/sqrt(20)+mean(data,2), 'k', 'linewidth', 1)
+plot(-std(data,1,2)/sqrt(20)+mean(data,2), 'k', 'linewidth', 1)
 
 
 data_cum2 = data;
@@ -94,9 +94,9 @@ end
 pv = sum(abs(amp_res) > amp_cmp, 2)/10000
 
 
-plot(mean(data,2), 'r', 'linewidth', 2)
-plot(std(data,1,2)/sqrt(19)+mean(data,2), 'r', 'linewidth', 1)
-plot(-std(data,1,2)/sqrt(19)+mean(data,2), 'r', 'linewidth', 1)
+plot(mean(data,2), 'b', 'linewidth', 2)
+plot(std(data,1,2)/sqrt(19)+mean(data,2), 'b', 'linewidth', 1)
+plot(-std(data,1,2)/sqrt(19)+mean(data,2), 'b', 'linewidth', 1)
 
 
 % Cumulative

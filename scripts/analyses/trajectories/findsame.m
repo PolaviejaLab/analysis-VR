@@ -2,6 +2,7 @@ function [same] = findsame (vect1, vect2)
 
 i_same = 1; 
 same = [];
+
 for i = 1:length(vect1)
     for j = 1:length(vect2)
         if (vect1(i) == vect2(j))

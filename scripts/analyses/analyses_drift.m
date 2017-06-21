@@ -4,7 +4,7 @@ addpath('..\statistics\');
 %% Get Data
 [drift, handp, n_participants] = get_drift_and_handp();
 
-diff_position = handp - drift;
+diff_position = handp - drift * 1000;
 
 position1 = [0.15, 0.5, 0.8, 0.4];
 position2 = [0.15, 0.1, 0.8, 0.4];
@@ -50,19 +50,11 @@ c = parula;
 c  =  c([1 6 11 16 42 47 52 57], :);
 
 cla; hold on;
-plot(nanmean(diff_position(:, 1:6)) * 100, '.', 'Color', c(6, :), 'MarkerSize', 18);
+plot(nanmean(diff_position(:, 1:8)) / 10, '.', 'Color', c(6, :), 'MarkerSize', 18);
 
-plot([1 2],[0 0], 'LineStyle', ':', 'color', ...
-    [150/256 150/256 150/256], 'LineWidth', 2.5);
-plot([3 6],[10 10], 'LineStyle', ':', 'color', ...
-    [150/256 150/256 150/256], 'LineWidth', 2.5);
-
-legend ({'perceived difference', 'real difference'}, ...
-    'location', 'northwest');
-
-for i = 1:6  
-    errorbar(i, nanmean(diff_position(:, i)) * 100, ...
-        nanstd(diff_position(:, i) * 100) /sqrt(n_participants), ...
+for i = 1:8  
+    errorbar(i, nanmean(diff_position(:, i)) / 10, ...
+        nanstd(diff_position(:, i) / 10) /sqrt(n_participants), ...
         'Color', c(6, :));
 end
 

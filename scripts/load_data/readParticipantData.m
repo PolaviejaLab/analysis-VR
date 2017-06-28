@@ -27,10 +27,7 @@ function data = readParticipantData ...
         error('Directory %s does not exist.', directory);
     end
     
-    
-    fprintf(datetime)
     pattern = fullfile(directory, [datetime(1:10) '*']);
-    
     files = dir(pattern);
     
     if numel(files) == 0
@@ -79,26 +76,24 @@ function data = readParticipantData ...
     end
     
     % Convert Unity coordinates into LEAP coordinates
-%     Ntrials = min(numel(results), numel(hand_positions));
-%     for i = 1:Ntrials
-%         N = size(hand_positions{i}, 1);
-%         M = [0 0 1 -0.184 + results{i}.offset; 
-%              0 1 0 -0.499; 
-%              -1.11 0 0 -3.822; 
-%              0 0 0 1]';
-% 
-%         
-%          
-%         Tr = [hand_positions{i}(:, 2:4) ones(N, 1)] * M;        
-%         hand_positions{i}(:, 2:4) = Tr(:, 1:3);
-%     end
-    
-      % Get the protocol
-    addpath('..\getData\');
-%     [ ~, order_dynamic] = get_order_perl (directory);
-[orderArray] = getOrderFromLog (participant);
+    Ntrials = min(numel(results), numel(hand_positions));
+    for i = 1:Ntrials
+        N = size(hand_positions{i}, 1);
+        M = [0 0 1 -0.184 + results{i}.offset; 
+             0 1 0 -0.499; 
+             -1.11 0 0 -3.822; 
+             0 0 0 1]';
 
+        
+         
+        Tr = [hand_positions{i}(:, 2:4) ones(N, 1)] * M;        
+        hand_positions{i}(:, 2:4) = Tr(:, 1:3);
+    end
     
+    % Get the protocol
+    addpath('..\getData\');
+    
+    [ ~, order_dynamic] = get_order_perl (directory);
     
     % Combine results (drift) from all files
     results = [results{:}];
@@ -107,7 +102,7 @@ function data = readParticipantData ...
         'version', 1, ...
         'results', results, ...
         'log', log, ...
-        'protocol', orderArray);
+        'protocol', order_dynamic);
 
     data.hands = hand_positions;
 end

@@ -18,18 +18,17 @@ for i_participant = 1:n_participants
     t_drift = [NaN, NaN, data.log.time_drift];
     
     drift(i_participant, :) = [data.results.proprioceptive_drift];
+
+    % Load the protocol 
     
-    % Load the protocol
-    
-    %     protocol = [1 2 3 (data.protocol + 3)];
-    protocol = data.protocol;
+    protocol = [1 2 3 (data.protocol + 3)];
     drift(i_participant, :) = drift(i_participant, protocol); % uncomment for new data
-    
-    %     [~, ~, mat_order] = get_data_pilots();
-    %     mat_order(mat_order == 6) = 5;
-    %     mat_order(mat_order == 8) = 6;
-    %     drift(i_participant, 2:7) = drift(i_participant, mat_order(i_participant, :)); % uncomment for old data
-    
+
+%     [~, ~, mat_order] = get_data_pilots();
+%     mat_order(mat_order == 6) = 5;
+%     mat_order(mat_order == 8) = 6;
+%     drift(i_participant, 2:7) = drift(i_participant, mat_order(i_participant, :)); % uncomment for old data
+      
     for i_condition = 1:n_conditions
         
         try
@@ -41,17 +40,17 @@ for i_participant = 1:n_participants
             
             dt = (data.hands{i_condition}(I, 1) - t_drift(i_condition)) * 3600 * 24 * 1000;
             
-            order = [data.protocol]; % uncomment for new data
+            order = [1 (data.protocol + 1)]; % uncomment for new data
             
             if(dt > 100)
                 warning('No sample found within 10ms (%f)', dt);
             else
                 handp(i_participant, order(i_condition)) = ...
-                    data.hands{i_condition}(I, 2); % uncomment for new data
-                %                 handp(i_participant, i_condition) = data.hands{i_condition}(I, 2); % uncomment for old data
+                data.hands{i_condition}(I, 2); % uncomment for new data
+%                 handp(i_participant, i_condition) = data.hands{i_condition}(I, 2); % uncomment for old data
             end
         catch
-            warning('Skipping participant %d because hand data is missing', i_participant);
+            warning('Skipping partitipant %d because hand data is missing', i_participant);
             handp(i_participant, i_condition) = NaN;
         end
     end

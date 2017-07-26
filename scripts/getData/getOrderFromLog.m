@@ -1,11 +1,12 @@
+function [orderArray] = getOrderFromLog (dataDirectory)
+
 %% Common variables
-dataDirectory = 'V:\Data\05. Experiment2_PilotsOfNoise';
 gitDirectory = 'E:\GitHub\Victoria-Discontinuity\'
 filesSubjects = dir(fullfile(dataDirectory, 'Subject*'));
 
 n_subjects = size(filesSubjects, 1);
 
-orderMatrix = nan(10, n_subjects);
+orderArray = nan(6, n_subjects);
 %%
 
 for i_subject = 1:n_subjects
@@ -34,12 +35,12 @@ for i_subject = 1:n_subjects
         fprintf('Protocol file %s\n', protocolName);
         
         protocolID = fopen(strcat(gitDirectory, protocolName));
-        table_ = textscan(protocolID, '%s %s %s %s %s %s %s %s %s %s %s %s');
-        protocolOrder = str2num(char(table_{1,1}(2:11)));
+        table_ = textscan(protocolID, '%s %s %s %s %s %s %s %s %s %s');
+        protocolOrder = str2num(char(table_{1,1}(2:7)));
         
-        orderMatrix(:, i_subject) = protocolOrder;
+        orderArray(:, i_subject) = protocolOrder;
     catch
-        orderMatrix(:, i_subject) = nan;
+        orderArray(:, i_subject) = nan;
     end
 end
-save('E:\GitHub\analysis-VR\data\Exp_PilotsNoise\order.mat', 'orderMatrix');
+save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\orderQuestionnaires.mat', 'orderArray');

@@ -1,10 +1,9 @@
 function [pval] = stat_bootstrapping (iterations, array1, array2)
 % STAT_BOOTSTRAPPING takes the number of iterations and compares de means
 % of the two arrays. 
-%
-% Not using absolute values
 
-diff_means = nanmean(array1) - nanmean(array2);
+
+diff_means = abs(nanmean(array1) - nanmean(array2));
 n_comp = size(array1, 1);                           % n_rows
 
 vec_values = [array1 array2];
@@ -22,6 +21,6 @@ for i = 1:iterations
     end
 end
 
-pval = sum(abs(vec_res) > vec_comp, 2)/iterations;
+pval = sum(abs(vec_res) < vec_comp, 2)/iterations;
 
 end 

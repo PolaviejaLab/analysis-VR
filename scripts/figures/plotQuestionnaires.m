@@ -32,8 +32,9 @@ p(2) = plot(edge, hist(data2(:), edge)/numel(data2), ...
 line([mean(data1(:)), mean(data1(:))], [-0.1 1.1], 'color', 'k');
 line([mean(data2(:)), mean(data2(:))], [-0.1 1.1], 'color', 'r');
 
-maxlim = max(max(h1), max(h2));
-maxlim = ceil(maxlim * 10)/10;
+% maxlim = max(max(h1), max(h2));
+% maxlim = ceil(maxlim * 10)/10;
+maxlim = 0.5
 
 xlim([0.5 7.5]);
 ylim([0 maxlim]);

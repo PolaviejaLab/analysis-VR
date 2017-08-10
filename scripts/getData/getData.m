@@ -1,4 +1,5 @@
 function [static_array, dynamic_array] = getData (dataDirectory)
+
 orderArray = getOrderFromLog(dataDirectory);
 
 filesSubjects = dir(fullfile(dataDirectory, 'Subject*'));

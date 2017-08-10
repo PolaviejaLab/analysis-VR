@@ -1,9 +1,9 @@
-function [] = plotCorrelations ...
+function [fig3] = plotCorrelations ...
     (data1, data2, plot_title, plot_xlabel, plot_ylabel, pearsonr, pval)
 
 
 
-figure(3), clf, hold on,
+fig3 = figure(3); clf, hold on,
 line([1 7], [1 7], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]);
 line([1 1], [0 1], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]); 
 line([0 1], [1 1], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]);

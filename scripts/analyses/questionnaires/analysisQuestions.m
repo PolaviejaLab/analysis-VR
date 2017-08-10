@@ -7,7 +7,7 @@ medians = [nanmedian(data1(:)), nanmedian(data2(:))];
 
 [~, pval_ttest] = ttest2(data1(:), data2(:));
 
-[pval_mannwit] = ranksum (data1(:), data2(:));
+[pval_mannwit] = signrank (data1(:), data2(:));
 
 
 pval_permutationmeans = 0;

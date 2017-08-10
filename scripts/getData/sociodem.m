@@ -1,3 +1,6 @@
+function [vecUsed, perFem, age_array, sch_array,...
+    gameArray, vrArray] = sociodem (dataDirectory)
+
 % SOCIODEM is a function that will read the sociodemographics text file and
 % extract important information
 % vecUsed is the vector of used participants (indicated with a 1 in the
@@ -10,9 +13,8 @@
 % sch_array is the array with the scholarity of the participants in order
 % to group them afterwards
 % gamArray is the vector with all the participants used for their analysis.
-% 
+% vrArray is the vector with all the participants used for the analysis
 
-function [vecUsed, perFem, meanAge, stdAge, sch_array, gameArray, vrArray] = sociodem (dataDirectory)
 
 fileName = 'sociodemographics.txt';
 sociodem_table = readtable(fullfile(dataDirectory, fileName));
@@ -25,6 +27,7 @@ age_aux = 4;
 sch_aux = 5;
 game_aux = 6;
 vr_aux = 7; 
+handedness = 9;
 
 nParticipants = size(sociodem_table, 1);
 
@@ -40,8 +43,6 @@ perFem = n_females/length(vecUsed) * 100;
 
 % age
 age_array = table2array(sociodem_table(vecUsed, age_aux));
-meanAge = mean(age_array);
-stdAge = std(age_array);
 
 % scholarity
 sch_array = table2array(sociodem_table(vecUsed, sch_aux));

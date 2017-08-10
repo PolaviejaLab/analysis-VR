@@ -42,5 +42,6 @@ for i_subject = 1:n_subjects
     catch
         orderArray(:, i_subject) = nan;
     end
+    save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\orderQuestionnaires.mat', 'orderArray');
 end
-save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\orderQuestionnaires.mat', 'orderArray');
+

@@ -3,6 +3,7 @@ addpath('analyses\questionnaires\');
 addpath('figures\');
 
 dataDirectory = 'V:\Data\06. ExpRep\';
+saveDirectory = 'C:\Users\User\Desktop\FiguresResubmission_MATLAB\';
 
 
 %% Load sociodemographics and other relevant data (sociodemographics.txt)
@@ -55,9 +56,6 @@ i_fig = 0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% FULL ARM STATIC - FULL ARM DYNAMIC %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-clear mn md pttest pmann pks2 R P pGroups
-
 data1 = squeeze(static_data(qOwnership, 1, :));
 data2 = squeeze(dynamic_data(qOwnership, 1, :));
 cond1 = 'Full arm static';
@@ -65,16 +63,13 @@ cond2 = 'Full arm dynamic';
 FigTitle = 'Sense of ownership';
 i_fig = i_fig + 1;
 
-doEverything(i_fig, data1, data2, cond1, cond2, FigTitle);
+doEverything(i_fig, data1, data2, cond1, cond2, FigTitle, saveDirectory);
 
 
 %% OWNERSHIP
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% FULL ARM STATIC - DETACHED ARM STATIC %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-clear mn md pttest pmann pks2 R P pGroups
-
 data1 = squeeze(static_data(qOwnership, 1, :));
 data2 = squeeze(static_data(qOwnership, 2, :));
 cond1 = 'Full arm static';
@@ -82,15 +77,13 @@ cond2 = 'Detached arm static';
 FigTitle = 'Sense of ownership';
 i_fig = i_fig + 1;
 
-doEverything(i_fig, data1, data2, cond1, cond2, FigTitle);
+doEverything(i_fig, data1, data2, cond1, cond2, FigTitle, saveDirectory);
+
 
 %% OWNERSHIP
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% DETACHED ARM STATIC - DETACHED ARM DYNAMIC %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-clear mn md pttest pmann pks2 R P pGroups
-
 data1 = squeeze(static_data(qOwnership, 2, :));
 data2 = squeeze(dynamic_data(qOwnership, 2, :));
 cond1 = 'Detached arm static';
@@ -98,15 +91,13 @@ cond2 = 'Detached arm dynamic';
 FigTitle = 'Sense of ownership';
 i_fig = i_fig + 1;
 
-doEverything(i_fig, data1, data2, cond1, cond2, FigTitle);
+doEverything(i_fig, data1, data2, cond1, cond2, FigTitle, saveDirectory);
+
 
 %% OWNERSHIP
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% FULL ARM DYNAMIC - DETACHED ARM DYNAMIC %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-clear mn md pttest pmann pks2 R P pGroups
-
 data1 = squeeze(dynamic_data(qOwnership, 1, :));
 data2 = squeeze(dynamic_data(qOwnership, 2, :));
 cond1 = 'Full arm dynamic';
@@ -114,16 +105,13 @@ cond2 = 'Detached arm dynamic';
 FigTitle = 'Sense of ownership';
 i_fig = i_fig + 1;
 
-doEverything(i_fig, data1, data2, cond1, cond2, FigTitle);
+doEverything(i_fig, data1, data2, cond1, cond2, FigTitle, saveDirectory);
 
 
 %% OWNERSHIP
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% FULL ARM STATIC - FULL ARM STATIC (BIS) %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
-
-clear mn md pttest pmann pks2 R P pGroups
-
 data1 = squeeze(static_data(qOwnership, 1, :));
 data2 = squeeze(static_data(qOwnership, 3, :));
 cond1 = 'Full arm static';
@@ -131,15 +119,13 @@ cond2 = 'Full arm static - post';
 FigTitle = 'Sense of ownership';
 i_fig = i_fig + 1;
 
-doEverything(i_fig, data1, data2, cond1, cond2, FigTitle);
+doEverything(i_fig, data1, data2, cond1, cond2, FigTitle, saveDirectory);
+
 
 %% OWNERSHIP
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% FULL ARM DYNAMIC - FULL ARM NOISE %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-clear mn md pttest pmann pks2 R P pGroups
-
 data1 = squeeze(dynamic_data(qOwnership, 1, :));
 data2 = squeeze(dynamic_data(qOwnership, 3, :));
 cond1 = 'Full arm dynamic';
@@ -147,16 +133,13 @@ cond2 = 'Noisy arm dynamic';
 FigTitle = 'Sense of ownership';
 i_fig = i_fig + 1;
 
-doEverything(i_fig, data1, data2, cond1, cond2, FigTitle);
+doEverything(i_fig, data1, data2, cond1, cond2, FigTitle, saveDirectory);
 
 
 %% OWNERSHIP
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% DETACHED ARM DYNAMIC - FULL ARM STATIC %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-clear mn md pttest pmann pks2 R P pGroups
-
 data1 = squeeze(static_data(qOwnership, 1, :));
 data2 = squeeze(dynamic_data(qOwnership, 2, :));
 cond1 = 'Full arm static';
@@ -164,16 +147,13 @@ cond2 = 'Detached arm dynamic';
 FigTitle = 'Sense of ownership';
 i_fig = i_fig + 1;
 
-doEverything(i_fig, data1, data2, cond1, cond2, FigTitle);
+doEverything(i_fig, data1, data2, cond1, cond2, FigTitle, saveDirectory);
 
 
 %% AGENCY - BODY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% FULL ARM DYNAMIC - DETACHED ARM DYNAMIC %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-clear mn md pttest pmann pks2 R P pGroups
-
 data1 = squeeze(dynamic_data(qAgency, 1, :));
 data2 = squeeze(dynamic_data(qAgency, 2, :));
 cond1 = 'Full arm dynamic';
@@ -181,15 +161,13 @@ cond2 = 'Detached arm dynamic';
 FigTitle = 'Sense of agency';
 i_fig = i_fig + 1;
 
-doEverything(i_fig, data1, data2, cond1, cond2, FigTitle);
+doEverything(i_fig, data1, data2, cond1, cond2, FigTitle, saveDirectory);
+
 
 %% AGENCY - BODY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% FULL ARM DYNAMIC - NOISY ARM DYNAMIC %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-clear mn md pttest pmann pks2 R P pGroups
-
 data1 = squeeze(dynamic_data(qAgency, 1, :));
 data2 = squeeze(dynamic_data(qAgency, 3, :));
 cond1 = 'Full arm dynamic';
@@ -200,16 +178,13 @@ i_fig = i_fig + 1;
 [mn, md, pttest, pmann, ~, ~] = ...
     analysisQuestions (data1, data2);
 
-doEverything(i_fig, data1, data2, cond1, cond2, FigTitle);
+doEverything(i_fig, data1, data2, cond1, cond2, FigTitle, saveDirectory);
 
 
 %% AGENCY - OUTCOME
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% FULL ARM DYNAMIC - DETACHED ARM DYNAMIC %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-clear mn md pttest pmann pks2 R P pGroups
-
 data1 = squeeze(dynamic_data(qOutAgency, 1, :));
 data2 = squeeze(dynamic_data(qOutAgency, 2, :));
 cond1 = 'Full arm dynamic';
@@ -217,31 +192,26 @@ cond2 = 'Detached arm dynamic';
 FigTitle = 'Sense of agency - outcome';
 i_fig = i_fig + 1;
 
-doEverything(i_fig, data1, data2, cond1, cond2, FigTitle);
+doEverything(i_fig, data1, data2, cond1, cond2, FigTitle, saveDirectory);
+
 
 %% AGENCY - OUTCOME
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% FULL ARM DYNAMIC - NOISY ARM DYNAMIC %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-clear mn md pttest pmann pks2 R P pGroups
-
 data1 = squeeze(dynamic_data(qOutAgency, 1, :));
 data2 = squeeze(dynamic_data(qOutAgency, 3, :));
 cond1 = 'Full arm dynamic';
 cond2 = 'Noisy arm dynamic';
 FigTitle = 'Sense of agency - outcome';
 i_fig = i_fig + 1;
-doEverything(i_fig, data1, data2, cond1, cond2, FigTitle);
+doEverything(i_fig, data1, data2, cond1, cond2, FigTitle, saveDirectory);
 
 
 %% VICARIOUS AGENCY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% FULL ARM STATIC - DETACHED ARM STATIC %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-clear mn md pttest pmann pks2 R P pGroups
-
 data1 = squeeze(static_data(qvAgency, 1, :));
 data2 = squeeze(static_data(qvAgency, 2, :));
 cond1 = 'Full arm static';
@@ -249,18 +219,13 @@ cond2 = 'Detached arm static';
 FigTitle = 'Vicarious agency';
 i_fig = i_fig + 1;
 
-doEverything(i_fig, data1, data2, cond1, cond2, FigTitle);
-
-
+doEverything(i_fig, data1, data2, cond1, cond2, FigTitle, saveDirectory);
 
 
 %% VICARIOUS AGENCY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% FULL ARM STATIC - FULL ARM STATIC (POST) %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-clear mn md pttest pmann pks2 R P pGroups
-
 data1 = squeeze(static_data(qvAgency, 1, :));
 data2 = squeeze(static_data(qvAgency, 3, :));
 cond1 = 'Full arm static';
@@ -268,7 +233,8 @@ cond2 = 'Full arm static - post';
 FigTitle = 'Vicarious agency';
 i_fig = i_fig + 1;
 
-doEverything(i_fig, data1, data2, cond1, cond2, FigTitle);
+doEverything(i_fig, data1, data2, cond1, cond2, FigTitle, saveDirectory);
+
 
 %% OWNERSHIP - AGENCY CORRELATION 
 %%%%%%%%%%%%%%%%%%%%%%%%
@@ -286,17 +252,16 @@ i_fig = i_fig + 1;
 
 [R, P] = corrcoef (nanmean(data1), nanmean(data2));
 
-fig3 = plotCorrelations(data1, data2, ...
-    FigTitle, cond1, cond2, ...
-    R(1,2), P(1,2))
+fig3 = ...
+    plotCorrelations(data1, data2, FigTitle, cond1, cond2, R(1,2), P(1,2));
 
 [pGroups] = analysisGroups(data1,data2);
 
 FigName = strcat('Figure',num2str(i_fig));
 
-saveas(fig3, ...
-    strcat('C:\Users\User\Desktop\FiguresResubmission_MATLAB\', ...
-    FigName, 'A.png'));
+saveas(fig3, strcat(saveDirectory, FigName, 'A.png'));
+saveas(fig3, strcat(saveDirectory, FigName, 'A.eps'));
+saveas(fig3, strcat(saveDirectory, FigName, 'A.fig'));
 
 
 %% OWNERSHIP - AGENCY CORRELATION 
@@ -314,17 +279,16 @@ FigTitle = 'Detached arm static';
 
 [R, P] = corrcoef (nanmean(data1), nanmean(data2));
 
-fig3 = plotCorrelations(data1, data2, ...
-    FigTitle, cond1, cond2, ...
-    R(1,2), P(1,2))
+fig3 = ...
+    plotCorrelations(data1, data2, FigTitle, cond1, cond2, R(1,2), P(1,2));
 
 [pGroups] = analysisGroups(data1,data2);
 
 FigName = strcat('Figure',num2str(i_fig));
 
-saveas(fig3, ...
-    strcat('C:\Users\User\Desktop\FiguresResubmission_MATLAB\', ...
-    FigName, 'B.png'));
+saveas(fig3, strcat(saveDirectory, FigName, 'B.png'));
+saveas(fig3, strcat(saveDirectory, FigName, 'B.eps'));
+saveas(fig3, strcat(saveDirectory, FigName, 'B.fig'));
 
 
 %% OWNERSHIP - AGENCY CORRELATION 
@@ -343,18 +307,16 @@ FigTitle = 'Full arm static - post';
 
 [R, P] = corrcoef (nanmean(data1), nanmean(data2));
 
-fig3 = plotCorrelations(data1, data2, ...
-    FigTitle, cond1, cond2, ...
-    R(1,2), P(1,2))
+fig3 = ...
+    plotCorrelations(data1, data2, FigTitle, cond1, cond2, R(1,2), P(1,2));
 
 [pGroups] = analysisGroups(data1,data2);
 
 FigName = strcat('Figure',num2str(i_fig));
 
-saveas(fig3, ...
-    strcat('C:\Users\User\Desktop\FiguresResubmission_MATLAB\', ...
-    FigName, 'C.png'));
-
+saveas(fig3, strcat(saveDirectory, FigName, 'C.png'));
+saveas(fig3, strcat(saveDirectory, FigName, 'C.eps'));
+saveas(fig3, strcat(saveDirectory, FigName, 'C.fig'));
 
 
 %% OWNERSHIP - AGENCY CORRELATION 
@@ -372,18 +334,16 @@ FigTitle = 'Full arm dynamic';
 
 [R, P] = corrcoef (nanmean(data1), nanmean(data2));
 
-fig3 = plotCorrelations(data1, data2, ...
-    FigTitle, cond1, cond2, ...
-    R(1,2), P(1,2))
+fig3 = ...
+    plotCorrelations(data1, data2, FigTitle, cond1, cond2, R(1,2), P(1,2));
 
 [pGroups] = analysisGroups(data1,data2);
 
 FigName = strcat('Figure',num2str(i_fig));
 
-saveas(fig3, ...
-    strcat('C:\Users\User\Desktop\FiguresResubmission_MATLAB\', ...
-    FigName, 'D.png'));
-
+saveas(fig3, strcat(saveDirectory, FigName, 'D.png'));
+saveas(fig3, strcat(saveDirectory, FigName, 'D.eps'));
+saveas(fig3, strcat(saveDirectory, FigName, 'D.fig'));
 
 
 %% OWNERSHIP - AGENCY CORRELATION 
@@ -401,18 +361,16 @@ FigTitle = 'Detached arm dynamic';
 
 [R, P] = corrcoef (nanmean(data1), nanmean(data2));
 
-fig3 = plotCorrelations(data1, data2, ...
-    FigTitle, cond1, cond2, ...
-    R(1,2), P(1,2))
+fig3 = ...
+    plotCorrelations(data1, data2, FigTitle, cond1, cond2, R(1,2), P(1,2));
 
 [pGroups] = analysisGroups(data1,data2);
 
 FigName = strcat('Figure',num2str(i_fig));
 
-saveas(fig3, ...
-    strcat('C:\Users\User\Desktop\FiguresResubmission_MATLAB\', ...
-    FigName, 'E.png'));
-
+saveas(fig3, strcat(saveDirectory, FigName, 'E.png'));
+saveas(fig3, strcat(saveDirectory, FigName, 'E.eps'));
+saveas(fig3, strcat(saveDirectory, FigName, 'E.fig'));
 
 
 %% OWNERSHIP - AGENCY CORRELATION 
@@ -430,18 +388,16 @@ FigTitle = 'Noisy arm dynamic';
 
 [R, P] = corrcoef (nanmean(data1), nanmean(data2));
 
-fig3 = plotCorrelations(data1, data2, ...
-    FigTitle, cond1, cond2, ...
-    R(1,2), P(1,2))
+fig3 = ...
+    plotCorrelations(data1, data2, FigTitle, cond1, cond2, R(1,2), P(1,2));
 
 [pGroups] = analysisGroups(data1,data2);
 
 FigName = strcat('Figure',num2str(i_fig));
 
-saveas(fig3, ...
-    strcat('C:\Users\User\Desktop\FiguresResubmission_MATLAB\', ...
-    FigName, 'F.png'));
-
+saveas(fig3, strcat(saveDirectory, FigName, 'F.png'));
+saveas(fig3, strcat(saveDirectory, FigName, 'F.eps'));
+saveas(fig3, strcat(saveDirectory, FigName, 'F.fig'));
 
 
 %%

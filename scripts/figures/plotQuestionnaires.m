@@ -4,6 +4,7 @@ function [fig1, fig2] = plotQuestionnaires (data1, data2, ...
 edge = 1:7;
 
 fig1 = figure(1); clf
+set(fig1, 'units', 'centimeters', 'position', [5 5 7.0 15.0]);
 hold on;
 boxplot([data1(:) data2(:)], 'colors', 'k');
 title(plot_title, 'fontname', 'arial');
@@ -23,7 +24,7 @@ hold off; box on;
 
 fig2 = figure(2); clf
 hold on;
-
+set(fig2, 'units', 'centimeters', 'position', [5 5 15.0 15.0]);
 % h1 = hist(data1(:), edge)/numel(data1);
 % h2 = hist(data2(:), edge)/numel(data2);
 % maxlim = max(max(h1), max(h2));
@@ -33,11 +34,11 @@ maxlim = 0.5;
 line([mean(data1(:)), mean(data1(:))], [-0.1 1.1], ...
     'color', [70/255, 70/255, 70/255], 'LineWidth', 1.5);
 line([mean(data2(:)), mean(data2(:))], [-0.1 1.1], ...
-    'color', [145/255, 145/255, 145/255], 'LineWidth', 1.5);
+    'color', 'r', 'LineWidth', 1.5);
 p(1) = plot(edge, hist(data1(:), edge)/numel(data1), ...
     'color', [70/255, 70/255, 70/255], 'LineWidth', 4);
 p(2) = plot(edge, hist(data2(:), edge)/numel(data2), ...
-    'color', [145/255, 145/255, 145/255], 'LineWidth', 4);
+    'color', 'r', 'LineWidth', 4);
 
 xlim([0.5 7.5]);
 ylim([0 maxlim]);

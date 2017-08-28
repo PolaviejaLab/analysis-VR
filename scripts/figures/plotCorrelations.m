@@ -4,6 +4,7 @@ function [fig3] = plotCorrelations ...
 
 
 fig3 = figure(3); clf, hold on,
+set(fig3, 'units', 'centimeters', 'position', [5 5 15.0 15.0]);
 line([1 7], [1 7], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]);
 line([1 1], [0 1], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]); 
 line([0 1], [1 1], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]);

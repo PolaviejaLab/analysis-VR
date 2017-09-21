@@ -1,5 +1,7 @@
-function [] = doEverything (i_fig, data1, data2, cond1, ...
-    cond2, FigTitle, saveDirectory)
+function [mn, stds, md, pVec, corrVec, groupVec] = AnalyzeandPlot ...
+    (i_fig, data1, data2, cond1, cond2, FigTitle)
+
+i_fig = i_fig + 1;
 
 clear mn md pttest pmann pks2 R P pGroups
 
@@ -16,12 +18,17 @@ clear mn md pttest pmann pks2 R P pGroups
 
 % Correlations
 [R, P] = corrcoef (nanmean(data1), nanmean(data2));
+corrVec = [R, P];
 
 [fig3] = plotCorrelations(data1, data2, ...
     FigTitle, cond1, cond2, ...
     R(1,2), P(1,2));
 
-[pGroups] = analysisGroups(data1,data2);
+pVec = [pttest, pmann, pks2];
+
+[pGroups, nLow, nMed, nHigh] = analysisGroups(data1,data2);
+groupVec = [pGroups;
+    nLow, nMed, nHigh];
 
 FigName = strcat('Figure',num2str(i_fig));
 
@@ -36,5 +43,4 @@ saveas(fig3, strcat(saveDirectory, FigName, 'C.eps'));
 saveas(fig3, strcat(saveDirectory, FigName, 'C.fig'));
 
 
-
-end 
+end

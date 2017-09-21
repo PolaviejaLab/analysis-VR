@@ -1,4 +1,4 @@
-function [pvals_array] = analysisGroups (data1, data2)
+function [pvals_array, numelArray] = analysisGroups (data1, data2)
 
 basal_low = find(nanmean(data1) <= 3);
 basal_med = find(nanmean(data1) > 3 & nanmean(data1) < 5);
@@ -10,5 +10,8 @@ addpath('statistics\');
 
 [pvals_array] = stat_bygroups (it, basal_low, basal_med, ...
     basal_hig, data1, data2);
+
+numelArray = [numel(basal_low), numel(basal_med), ...
+    numel(basal_hig)]
 end
 

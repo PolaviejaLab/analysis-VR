@@ -1,5 +1,6 @@
 function [fig3] = plotCorrelations ...
-    (data1, data2, plot_title, plot_xlabel, plot_ylabel, pearsonr, pval)
+    (data1, data2, plot_title, plot_xlabel, ...
+    plot_ylabel, pearsonr, pval)
 
 
 
@@ -36,6 +37,9 @@ title(plot_title, 'fontname', 'arial');
 xlabel(plot_xlabel, 'fontname', 'arial');
 ylabel(plot_ylabel, 'fontname', 'arial');
 hold off, box on;
+
+
+
 
 
 end 

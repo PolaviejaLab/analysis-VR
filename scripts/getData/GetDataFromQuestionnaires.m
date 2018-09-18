@@ -1,4 +1,4 @@
-function [static_array, dynamic_array] = getData (dataDirectory)
+function [QuestionnaireData] = GetDataFromQuestionnaires (dataDirectory)
 
 orderArray = getOrderFromLog(dataDirectory);
 
@@ -6,9 +6,7 @@ filesSubjects = dir(fullfile(dataDirectory, 'Subject*'));
 nSubjects = length(filesSubjects);
 
 for i_subject = 1:nSubjects
-    
     % subject folder
-    
     questionnaireFolder = fullfile(dataDirectory, filesSubjects(i_subject).name, '\Questionnaires\');
     
     % get questionnaire file
@@ -30,4 +28,7 @@ for i_subject = 1:nSubjects
     dynamic_array(:,:, i_subject) = dynamic_table;
     
 end
+QuestionnaireData.static = static_array;
+QuestionnaireData.dynamic = dynamic_array;
+
 end

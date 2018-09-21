@@ -1,3 +1,4 @@
+addpath('getData');
 dataDirectory = 'V:\Data\06. ExpRep\';
 
 
@@ -28,14 +29,14 @@ QuestionnaireData.staticUsed = QuestionnaireData.static(:, :, vecUsed);
 QuestionnaireData.dynamicUsed = QuestionnaireData.dynamic(:, :, vecUsed);
 
 load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\QuestionnaireOrder.mat');
-QuestionnaireOrder.All = orderArray; 
-QuestionnaireOrder.Used = orderArray(:, vecUsed);
-
+OrderQuestionnaires.All = orderArray; 
+OrderQuestionnaires.Used = orderArray(:, vecUsed);
+save
 
 %% Save parameters
 save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\QuestionnaireOrder.mat', ...
-    'QuestionnaireOrder');
+    'OrderQuestionnaires');
 save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\Data.mat', ...
-     'SubjectData', 'QuestionnaireData');
+     'SubjectData', 'QuestionnaireData', 'vecUsed');
 
  

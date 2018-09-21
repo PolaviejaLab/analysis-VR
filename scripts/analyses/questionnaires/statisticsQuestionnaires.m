@@ -11,9 +11,7 @@ results.stats.SignedRank = signrank (data1, data2);
 results.stats.pearsonR = R(1,2);
 results.stats.corrPval = P(1,2);
 
-
-
-% [results.stats.groups] = analysisGroups (data1, data2);
+[results.stats.groups] = analysisGroups (data1, data2);
 
 
 end

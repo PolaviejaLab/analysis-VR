@@ -1,30 +1,30 @@
-addpath('analyses\trajectories');
-addpath('analyses');
-addpath('getData');
-
-%% Load data
-[params] = GetParameters();
-load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessData_Trajectories.mat');
-load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\QuestionnaireOrder.mat');
-load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessData_Questionnaires.mat');
-
-fprintf('Data loaded \n');
-
-
-%% Variables
-order_array = OrderQuestionnaires.Used;
-waves_trial1 = 1:25;
-waves_trial2 = 26:50;
-waves_trial3 = 51:75;
-
-
-%% Remove unused subjects
-preprocess.handp.timestamps_used = preprocess.handp.timestamps(vecUsed, params.dynamicTrials);
-preprocess.handp.position_used = preprocess.handp.positions(vecUsed, params.dynamicTrials);
-preprocess.timestamps.trialStart_used = preprocess.timestamps.trialStart(1, vecUsed);
-preprocess.timestamps.trialEnd_used = preprocess.timestamps.trialEnd(1, vecUsed);
-preprocess.timestamps.waveStart_used = preprocess.timestamps.waveStart(1, vecUsed);
-preprocess.timestamps.waveEnd_used = preprocess.timestamps.waveEnd(1, vecUsed);
+% addpath('analyses\trajectories');
+% addpath('analyses');
+% addpath('getData');
+%
+% %% Load data
+% [params] = GetParameters();
+% load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessData_Trajectories.mat');
+% load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\QuestionnaireOrder.mat');
+% load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessData_Questionnaires.mat');
+%
+% fprintf('Data loaded \n');
+%
+%
+% %% Variables
+% order_array = OrderQuestionnaires.Used;
+% waves_trial1 = 1:25;
+% waves_trial2 = 26:50;
+% waves_trial3 = 51:75;
+%
+%
+% %% Remove unused subjects
+% preprocess.handp.timestamps_used = preprocess.handp.timestamps(vecUsed, params.dynamicTrials);
+% preprocess.handp.position_used = preprocess.handp.positions(vecUsed, params.dynamicTrials);
+% preprocess.timestamps.trialStart_used = preprocess.timestamps.trialStart(1, vecUsed);
+% preprocess.timestamps.trialEnd_used = preprocess.timestamps.trialEnd(1, vecUsed);
+% preprocess.timestamps.waveStart_used = preprocess.timestamps.waveStart(1, vecUsed);
+% preprocess.timestamps.waveEnd_used = preprocess.timestamps.waveEnd(1, vecUsed);
 
 
 %% Extract Trial Trajectories
@@ -43,35 +43,39 @@ for i_participant = 1:numel(vecUsed)
             warning('No timestamps found');
         end
         
-        
         if (isnan(aux_start))
             ind_start = NaN;
             ind_end = NaN;
             warning('No hand positions found');
-        else  
-            try
-                ind_start = strmatch(aux_start, ...
-                    preprocess.handp.timestamps_used{i_participant, i_trial});
-                ind_end = strmatch(aux_end, ...
-                    preprocess.handp.timestamps_used{i_participant, i_trial});
-            catch
-                ind_start = 1;
-                warning('No matching timestamps for start of the trial');
-                ind_end = strmatch(aux_end, ...
-                    preprocess.handp.timestamps_used{i_participant, i_trial});
-            end
+        else
             
+            ind_start = strmatch(aux_start, ...
+                preprocess.handp.timestamps_used{i_participant, i_trial});
+            ind_end = strmatch(aux_end, ...
+                preprocess.handp.timestamps_used{i_participant, i_trial});
         end
         
-        if(isnan(ind_start))
-            processed.handp.position{i_participant, i_trial} = [];
-        else
-            processed.handp.position{i_participant, i_trial} = ...
-                preprocess.handp.position_used{i_participant, i_trial}(ind_start:ind_end, :);
-            fprintf('Hand Positions stored \n');          
+        if (isempty(ind_start))
+            ind_start = 1;
         end
-    end 
+        
+        if (isempty(ind_end) && i_trial == 3)
+            ind_end = size(preprocess.handp.position_used{i_participant, ...
+            i_trial}, 1);
+        end
+    end
+    
+    if(isnan(ind_start))
+        processed.hpositions.trials{i_participant, ...
+            order_array(params.dynamicTrials(i_trial))} = [];
+    else
+        processed.hpositions.trials{i_participant, order_array(params.dynamicTrials(i_trial))} = ...
+            preprocess.handp.position_used{i_participant, ...
+            i_trial}(ind_start(1):ind_end(1), :);
+        fprintf('Hand Positions stored \n');
+    end
 end
+
 
 save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessData_Trajectories.mat', 'preprocess');
 save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\ProcessedData_Trajectories.mat', 'processed');

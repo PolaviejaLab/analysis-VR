@@ -85,10 +85,13 @@ for i_subject = 1:numel(filesSubjects)
     
 end
 
-timestamps.trialStart = startTrial_timestamps;
-timestamps.trialEnd = endTrial_timestamps;
-timestamps.waveStart = startWave_timestamps;
-timestamps.waveEnd = endWave_timestamps;
+preprocess.handp.positions = handp_trials;
+preprocess.handp.timestamps = timestamps_trials;
+preprocess.timestamps.trialStart = startTrial_timestamps;
+preprocess.timestamps.trialEnd = endTrial_timestamps;
+preprocess.timestamps.waveStart = startWave_timestamps;
+preprocess.timestamps.waveEnd = endWave_timestamps;
 
-save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\Data_Trajectories.mat', ...
-    'handp_trials', 'timestamps_trials', 'timestamps');
+
+save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessData_Trajectories.mat', ...
+    'preprocess');

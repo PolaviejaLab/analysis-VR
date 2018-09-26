@@ -34,9 +34,11 @@ OrderQuestionnaires.Used = orderArray(:, vecUsed);
 save
 
 %% Save parameters
+save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\Variables.mat', ...
+    'SubjectData');
 save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\QuestionnaireOrder.mat', ...
     'OrderQuestionnaires');
-save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\Data.mat', ...
-     'SubjectData', 'QuestionnaireData', 'vecUsed');
+save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessData_Questionnaires.mat', ...
+     'QuestionnaireData', 'vecUsed');
 
  

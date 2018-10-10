@@ -5,6 +5,8 @@ addpath('getData');
 
 %% Load data
 [params] = GetParameters();
+
+fprintf('Loading Data \n');
 load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessData_Trajectories.mat');
 load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\QuestionnaireOrder.mat');
 load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessData_Questionnaires.mat');
@@ -21,6 +23,8 @@ waves_trial = [...
 
 
 %% Remove unused subjects
+fprintf('Removing unused participants \n');
+
 preprocess.handp.timestamps_used = preprocess.handp.timestamps(vecUsed, params.dynamicTrials);
 preprocess.handp.position_used = preprocess.handp.positions(vecUsed, params.dynamicTrials);
 preprocess.timestamps.trialStart_used = preprocess.timestamps.trialStart(1, vecUsed);
@@ -28,6 +32,7 @@ preprocess.timestamps.trialEnd_used = preprocess.timestamps.trialEnd(1, vecUsed)
 preprocess.timestamps.waveStart_used = preprocess.timestamps.waveStart(1, vecUsed);
 preprocess.timestamps.waveEnd_used = preprocess.timestamps.waveEnd(1, vecUsed);
 
+fprintf('Unused subjects removed \n');
 
 %% Extract Trial Trajectories
 
@@ -36,9 +41,9 @@ for i_participant = 1:numel(vecUsed)
         fprintf('Extracting participant: %u, trial: %u \n', i_participant, i_trial);
         try
             aux_start = preprocess.timestamps.trialStart_used{1,i_participant}(i_trial, 1:21);
-            fprintf('Start index: %s \n', aux_start);
+            fprintf('Start timestamp: %s \n', aux_start);
             aux_end = preprocess.timestamps.trialEnd_used{1,i_participant}(i_trial, 1:21);
-            fprintf('End index: %s \n', aux_end);
+            fprintf('End timestamp: %s \n', aux_end);
         catch
             aux_start = NaN;
             aux_end = NaN;
@@ -126,11 +131,99 @@ for i_participant = 1:numel(vecUsed)
                 warning('No hand positions stored \n');
             end
         end
-    end  
+    end
 end
 
 processed.hpositions.wave = processed.hpositions.wave(:, [3, 4, 6]);
 
+
+%% Transform TS into duration of the task
+
+for i_participant = 1:numel(vecUsed)
+    for i_trial = 1:numel(params.dynamicTrials)
+        fprintf('Extracting time of participant: %u, trial: %u \n', i_participant, i_trial);
+        try
+            aux_start = preprocess.timestamps.trialStart_used{1,i_participant}(i_trial, 12:23);
+            fprintf('Starting time: %s \n', aux_start);
+            aux_end = preprocess.timestamps.trialEnd_used{1,i_participant}(i_trial, 12:23);
+            fprintf('Finishing time: %s \n', aux_end);
+        catch
+            aux_start = NaN;
+            aux_end = NaN;
+            warning('No time found');
+        end
+        
+        
+        try
+            msStart = str2num(aux_start(10:12));
+            [sStart] = TransformToSeconds(aux_start(1:8));
+            
+            msEnd = str2num(aux_end(10:12));
+            [sEnd] = TransformToSeconds(aux_end(1:8));
+            
+            processed.timestamps.taskDuration{i_participant, ...
+                order_array(params.dynamicTrials(i_trial))} = ...
+                ((sEnd * 1000) + msEnd) - ((sStart * 1000) + msStart);
+            fprintf('Duration: %u \n', processed.timestamps.taskDuration{i_participant, ...
+                order_array(params.dynamicTrials(i_trial))})
+        catch
+            processed.timestamps.taskDuration{i_participant, ...
+                order_array(params.dynamicTrials(i_trial))} = NaN;
+            fprintf('Durantion: not found \n')
+        end
+    end
+end
+
+processed.timestamps.taskDuration = ...
+    processed.timestamps.taskDuration(:, params.dynamicTrials);
+
+% another way to do it to generate struct with both,and then substract all
+% at the same time while creating the new variable. - extra Points
+
+
+%% Transform TS into the duration of each individual waving event
+
+for i_participant = 2:numel(vecUsed)
+    for i_trial = 1:numel(params.dynamicTrials)
+        for i_wave = 1:25
+            fprintf('Extracting wave time for participant %u, trial %u, waving event %u \n', ...
+                i_participant, i_trial, i_wave);
+            
+            try
+                aux_start = preprocess.timestamps.waveStart_used{1, i_participant}(waves_trial(i_trial, i_wave), 12:23);
+                fprintf('Start index: %s \n', aux_start);
+                aux_end = preprocess.timestamps.waveEnd_used{1, i_participant}(waves_trial(i_trial, i_wave), 12:23);
+                fprintf('End index: %s \n', aux_end);
+            catch
+                aux_start = NaN;
+                aux_end = NaN;
+                warning('No timestamps found \n');
+            end
+            
+            try
+                msStart = str2num(aux_start(10:12));
+                [sStart] = TransformToSeconds(aux_start(1:8));
+                
+                msEnd = str2num(aux_end(10:12));
+                [sEnd] = TransformToSeconds(aux_end(1:8));
+                
+                processed.timestamps.waveDuration{i_participant, ...
+                    order_array(params.dynamicTrials(i_trial))}(i_wave) = ...
+                    ((sEnd * 1000) + msEnd) - ((sStart * 1000) + msStart);
+                fprintf('wave %u duration found \n');
+%                 fprintf('wave %u duration: %u \n', i_wave, processed.timestamps.waveDuration{i_participant, ...
+%                     order_array(params.dynamicTrials(i_trial))})
+            catch
+                processed.timestamps.taskDuration{i_participant, ...
+                    i_participant, order_array(params.dynamicTrials(i_trial))}(i_wave) = NaN;
+                warning('Duration: not found \n')
+            end         
+        end
+    end
+end
+
+processed.timestamps.waveDuration = ...
+    processed.timestamps.waveDuration(:, params.dynamicTrials);
 
 %% Save data
 save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessData_Trajectories.mat', 'preprocess');

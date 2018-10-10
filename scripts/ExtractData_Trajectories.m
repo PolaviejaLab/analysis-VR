@@ -1,5 +1,7 @@
-dataDirectory = 'V:\Data\06. ExpRep';
 addpath('getData');
+
+%% Variables
+[params] = GetParameters();
 
 filesSubjects = dir(fullfile(dataDirectory, 'Subject*'));
 

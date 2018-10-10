@@ -1,5 +1,7 @@
 addpath('getData');
-dataDirectory = 'V:\Data\06. ExpRep\';
+
+%% Variables
+[params] = GetParameters();
 
 
 %% Load Subject Data

@@ -210,7 +210,7 @@ for i_participant = 2:numel(vecUsed)
                 processed.timestamps.waveDuration{i_participant, ...
                     order_array(params.dynamicTrials(i_trial))}(i_wave) = ...
                     ((sEnd * 1000) + msEnd) - ((sStart * 1000) + msStart);
-                fprintf('wave %u duration found \n');
+                fprintf('wave duration found \n');
 %                 fprintf('wave %u duration: %u \n', i_wave, processed.timestamps.waveDuration{i_participant, ...
 %                     order_array(params.dynamicTrials(i_trial))})
             catch
@@ -224,6 +224,7 @@ end
 
 processed.timestamps.waveDuration = ...
     processed.timestamps.waveDuration(:, params.dynamicTrials);
+
 
 %% Save data
 save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessData_Trajectories.mat', 'preprocess');

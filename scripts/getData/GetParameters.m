@@ -1,7 +1,6 @@
 function [params] = GetParameters ()
 % Folders
-dataDirectory = 'V:\Data\06. ExpRep';
-
+params.dataDirectory = 'V:\Data\06. ExpRep';
 
 % Questionnaires 
 params.quest.owner = 1:4;

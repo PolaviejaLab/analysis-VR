@@ -3,13 +3,13 @@ addpath('getData');
 %% Variables
 [params] = GetParameters();
 
-filesSubjects = dir(fullfile(dataDirectory, 'Subject*'));
+filesSubjects = dir(fullfile(params.dataDirectory, 'Subject*'));
 
 %% Extract Trajectories
 for i_subject = 1:numel(filesSubjects)
-    subjectFolder = fullfile(dataDirectory, ...
+    subjectFolder = fullfile(params.dataDirectory, ...
         filesSubjects(i_subject).name, '\');
-    unityFolder = fullfile(dataDirectory, ...
+    unityFolder = fullfile(params.dataDirectory, ...
         filesSubjects(i_subject).name, '\Unity_Files\');
     fileName = filesSubjects(i_subject).name;
     
@@ -71,9 +71,11 @@ for i_subject = 1:numel(filesSubjects)
             'Entering state Target');
         [t_wEnd] = get_timestamps (logFile_name, 'WaveController', ...
             'Entering state Waved');
+        % 'Waved correctly');
+        
         
         startWave_timestamps{i_subject} = t_wStart;
-        endWave_timestamps{i_subject} = t_wEnd;        
+        endWave_timestamps{i_subject} = t_wEnd;
         
         fprintf('%u and %u waving events timestamps found for %s \n', ...
             size(t_wStart, 1), size(t_wEnd, 1), ...

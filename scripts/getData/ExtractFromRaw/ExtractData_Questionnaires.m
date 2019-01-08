@@ -1,4 +1,4 @@
-addpath('getData');
+addpath('..');
 
 %% Variables
 [params] = GetParameters();
@@ -11,7 +11,7 @@ addpath('getData');
 
 % Load the sociodemographics file
 fileName = 'sociodemographics.txt';
-sociodem_table = readtable(fullfile(dataDirectory, fileName));
+sociodem_table = readtable(fullfile(params.dataDirectory, fileName));
 
 % Subjects Used for Analysis (Inclusion Criteria)
 column_used = 8; % Change according to file

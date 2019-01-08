@@ -67,8 +67,11 @@ else
     text(1, 6, strcat('p= ', num2str(pval)), 'fontname', 'arial');
 end
 
-pearsonr = round(statValues.pearsonR*1000)/1000;
-text(1, 6.5, strcat('r= ', num2str(pearsonr)), 'fontname', 'arial');
+
+spearmanrho = round(statValues.spearmanRho*1000)/1000; 
+text(1, 6.5, strcat('rho= ', num2str(spearmanrho)), 'fontname', 'arial');
+% pearsonr = round(statValues.pearsonR*1000)/1000;
+% text(1, 6.5, strcat('r= ', num2str(pearsonr)), 'fontname', 'arial');
 
 
 xlim([0.5 7.5]); ylim([0.5 7.5]);

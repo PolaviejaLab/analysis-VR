@@ -1,13 +1,11 @@
-addpath('analyses\trajectories');
-addpath('analyses');
-addpath('getData');
+addpath('..\');
 
 
 %% Load data
 [params] = GetParameters();
 
 fprintf('Loading Data \n');
-load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessData_Trajectories.mat');
+load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessedData_Trajectories.mat');
 load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\QuestionnaireOrder.mat');
 load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessData_Questionnaires.mat');
 
@@ -16,23 +14,29 @@ fprintf('Data loaded \n');
 
 %% Variables
 order_array = OrderQuestionnaires.Used;
-waves_trial = [...
-    1:25;
-    26:50;
-    51:75];
 
 
 %% Remove unused subjects
 fprintf('Removing unused participants \n');
 
-preprocess.handp.timestamps_used = preprocess.handp.timestamps(vecUsed, params.dynamicTrials);
-preprocess.handp.position_used = preprocess.handp.positions(vecUsed, params.dynamicTrials);
-preprocess.timestamps.trialStart_used = preprocess.timestamps.trialStart(1, vecUsed);
-preprocess.timestamps.trialEnd_used = preprocess.timestamps.trialEnd(1, vecUsed);
-preprocess.timestamps.waveStart_used = preprocess.timestamps.waveStart(1, vecUsed);
-preprocess.timestamps.waveEnd_used = preprocess.timestamps.waveEnd(1, vecUsed);
+preprocessed.handp.timestamps_used = ...
+    preprocessed.handp.timestamps(vecUsed, params.dynamicTrials);
+preprocessed.handp.position_used = ...
+    preprocessed.handp.positions(vecUsed, params.dynamicTrials);
+preprocessed.timestamps.trials_used = ...
+    preprocessed.timestamps.trials(vecUsed, :);
+preprocessed.timestamps.waves_used = ...
+    preprocessed.timestamps.waves(vecUsed, :);
 
 fprintf('Unused subjects removed \n');
+
+
+%% Clear Timestamps Waving Evens
+
+[processed.timestamps.waves] = ...
+    cutWavesPerTrial(preprocessed.timestamps.waves_used, ...
+    preprocessed.timestamps.trials_used);
+
 
 %% Extract Trial Trajectories
 
@@ -40,9 +44,9 @@ for i_participant = 1:numel(vecUsed)
     for i_trial = 1:numel(params.dynamicTrials)
         fprintf('Extracting participant: %u, trial: %u \n', i_participant, i_trial);
         try
-            aux_start = preprocess.timestamps.trialStart_used{1,i_participant}(i_trial, 1:21);
+            aux_start = preprocessed.timestamps.trials_used{i_participant, 1}(i_trial, 1:21);
             fprintf('Start timestamp: %s \n', aux_start);
-            aux_end = preprocess.timestamps.trialEnd_used{1,i_participant}(i_trial, 1:21);
+            aux_end = preprocessed.timestamps.trials_used{i_participant, 2}(i_trial, 1:21);
             fprintf('End timestamp: %s \n', aux_end);
         catch
             aux_start = NaN;
@@ -57,9 +61,9 @@ for i_participant = 1:numel(vecUsed)
         else
             
             ind_start = strmatch(aux_start, ...
-                preprocess.handp.timestamps_used{i_participant, i_trial});
+                preprocessed.handp.timestamps_used{i_participant, i_trial});
             ind_end = strmatch(aux_end, ...
-                preprocess.handp.timestamps_used{i_participant, i_trial});
+                preprocessed.handp.timestamps_used{i_participant, i_trial});
         end
         
         if (isempty(ind_start))
@@ -67,7 +71,7 @@ for i_participant = 1:numel(vecUsed)
         end
         
         if (isempty(ind_end) && i_trial == 3)
-            ind_end = size(preprocess.handp.position_used{i_participant, ...
+            ind_end = size(preprocessed.handp.position_used{i_participant, ...
                 i_trial}, 1);
         end
         
@@ -77,7 +81,7 @@ for i_participant = 1:numel(vecUsed)
                 order_array(params.dynamicTrials(i_trial))} = [];
         else
             processed.hpositions.trials{i_participant, order_array(params.dynamicTrials(i_trial))} = ...
-                preprocess.handp.position_used{i_participant, ...
+                preprocessed.handp.position_used{i_participant, ...
                 i_trial}(ind_start(1):ind_end(1), :);
             fprintf('Hand Positions stored \n');
         end
@@ -95,9 +99,13 @@ for i_participant = 1:numel(vecUsed)
             fprintf('Extracting participant: %u, trial: %u, waving event: %u \n', ...
                 i_participant, i_trial, i_wave);
             try
-                aux_start = preprocess.timestamps.waveStart_used{1, i_participant}(waves_trial(i_trial, i_wave), 1:21);
+                aux_start = ...
+                    preprocessed.timestamps.waves_used{i_participant, 1} ...
+                    (params.waves_trial(i_trial, i_wave), 1:21);
                 fprintf('Start index: %s \n', aux_start);
-                aux_end = preprocess.timestamps.waveEnd_used{1, i_participant}(waves_trial(i_trial, i_wave), 1:21);
+                aux_end = ...
+                    preprocessed.timestamps.waves_used{i_participant, 2} ...
+                    (params.waves_trial(i_trial, i_wave), 1:21);             
                 fprintf('End index: %s \n', aux_end);
             catch
                 aux_start = NaN;
@@ -112,9 +120,9 @@ for i_participant = 1:numel(vecUsed)
                 warning('No hand positions found \n');
             else
                 ind_start = strmatch(aux_start, ...
-                    preprocess.handp.timestamps_used{i_participant, i_trial});
+                    preprocessed.handp.timestamps_used{i_participant, i_trial});
                 ind_end = strmatch(aux_end, ...
-                    preprocess.handp.timestamps_used{i_participant, i_trial});
+                    preprocessed.handp.timestamps_used{i_participant, i_trial});
             end
             
             try
@@ -122,7 +130,7 @@ for i_participant = 1:numel(vecUsed)
                     processed.hpositions.wave{i_participant, order_array(params.dynamicTrials(i_trial))}{i_wave} = [];
                 else
                     processed.hpositions.wave{i_participant, order_array(params.dynamicTrials(i_trial))}{i_wave} = ...
-                        preprocess.handp.position_used{i_participant, ...
+                        preprocessed.handp.position_used{i_participant, ...
                         i_trial}(ind_start(1):ind_end(1), :);
                     fprintf('Hand Positions stored \n');
                 end
@@ -134,7 +142,7 @@ for i_participant = 1:numel(vecUsed)
     end
 end
 
-processed.hpositions.wave = processed.hpositions.wave(:, [3, 4, 6]);
+% processed.hpositions.wave = processed.hpositions.wave(:, [3, 4, 6]);
 
 
 %% Transform TS into duration of the task
@@ -143,9 +151,9 @@ for i_participant = 1:numel(vecUsed)
     for i_trial = 1:numel(params.dynamicTrials)
         fprintf('Extracting time of participant: %u, trial: %u \n', i_participant, i_trial);
         try
-            aux_start = preprocess.timestamps.trialStart_used{1,i_participant}(i_trial, 12:23);
+            aux_start = preprocessed.timestamps.trialStart_used{1,i_participant}(i_trial, 12:23);
             fprintf('Starting time: %s \n', aux_start);
-            aux_end = preprocess.timestamps.trialEnd_used{1,i_participant}(i_trial, 12:23);
+            aux_end = preprocessed.timestamps.trialEnd_used{1,i_participant}(i_trial, 12:23);
             fprintf('Finishing time: %s \n', aux_end);
         catch
             aux_start = NaN;
@@ -190,14 +198,14 @@ for i_participant = 2:numel(vecUsed)
                 i_participant, i_trial, i_wave);
             
             try
-                aux_start = preprocess.timestamps.waveStart_used{1, i_participant}(waves_trial(i_trial, i_wave), 12:23);
+                aux_start = preprocessed.timestamps.waveStart_used{1, i_participant}(params.waves_trial(i_trial, i_wave), 12:23);
                 fprintf('Start index: %s \n', aux_start);
-                aux_end = preprocess.timestamps.waveEnd_used{1, i_participant}(waves_trial(i_trial, i_wave), 12:23);
+                aux_end = preprocessed.timestamps.waveEnd_used{1, i_participant}(params.waves_trial(i_trial, i_wave), 12:23);
                 fprintf('End index: %s \n', aux_end);
             catch
                 aux_start = NaN;
                 aux_end = NaN;
-                warning('No timestamps found \n');
+                warning('No timestamps found');
             end
             
             try
@@ -211,13 +219,13 @@ for i_participant = 2:numel(vecUsed)
                     order_array(params.dynamicTrials(i_trial))}(i_wave) = ...
                     ((sEnd * 1000) + msEnd) - ((sStart * 1000) + msStart);
                 fprintf('wave duration found \n');
-%                 fprintf('wave %u duration: %u \n', i_wave, processed.timestamps.waveDuration{i_participant, ...
-%                     order_array(params.dynamicTrials(i_trial))})
+                %                 fprintf('wave %u duration: %u \n', i_wave, processed.timestamps.waveDuration{i_participant, ...
+                %                     order_array(params.dynamicTrials(i_trial))})
             catch
-                processed.timestamps.taskDuration{i_participant, ...
+                processed.timestamps.waveDuration{i_participant, ...
                     i_participant, order_array(params.dynamicTrials(i_trial))}(i_wave) = NaN;
-                warning('Duration: not found \n')
-            end         
+                warning('Wave duration: not found')
+            end
         end
     end
 end
@@ -227,6 +235,6 @@ processed.timestamps.waveDuration = ...
 
 
 %% Save data
-save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessData_Trajectories.mat', 'preprocess');
+save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\preprocessedData_Trajectories.mat', 'preprocessed');
 save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\ProcessedData_Trajectories.mat', 'processed');
 

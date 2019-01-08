@@ -2,7 +2,12 @@ function [params] = GetParameters ()
 % Folders
 params.dataDirectory = 'V:\Data\06. ExpRep';
 
-% Questionnaires 
+params.waves_trial = [...
+    1:25;
+    26:50;
+    51:75];
+
+% Questionnaires
 params.quest.owner = 1:4;
 params.quest.ownerCnt = [5,7];
 params.quest.similar = 6;
@@ -10,6 +15,7 @@ params.quest.similar = 6;
 params.quest.agenDyn = 8:11;
 params.quest.agenOut = 12:13;
 params.quest.agenDynC = 14:16;
+params.quest.agenOutC = 17;
 
 params.quest.agenStat = 8:9;
 params.quest.agenStatC = 10;
@@ -30,6 +36,15 @@ params.conditionDynamic = {...
     'Detached hand dynamic', ...
     'Incongruent movement'};
 
-end 
+
+% Analysis
+params.tags.Controller = 'WaveController';
+params.tags.Event.waveStart = 'Entering state Target';
+params.tags.Event.waveEnd{1} = 'Waved correctly'; %  'Entering state Waved'
+params.tags.Event.waveEnd{2} = 'Waved incorrectly';
+params.tags.Event.waveEnd{3} = 'Wave late'; % this one should be ignored
+
+
+end
 
 

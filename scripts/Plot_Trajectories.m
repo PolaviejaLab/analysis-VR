@@ -1,4 +1,5 @@
 addpath('analyses');
+addpath('getData\');
 
 
 %% Load trajectory Data
@@ -35,24 +36,36 @@ end
 
 %% Plot individual waving events
 fprintf('Plotting individual waving events \n');
-for i_participant = 1:numParticipats
+for i_participant = 2:numParticipats
     fig = figure(i_participant + 37);
     hold on,
     try
         for i_wave = 1:25
+            if (~isempty(processed.hpositions.wave{i_participant, 1}{1, i_wave}))
             plot(...
                 processed.hpositions.wave{i_participant, 1}{1, i_wave}(:, 3), ...
                 processed.hpositions.wave{i_participant, 1}{1, i_wave}(:, 1), 'k');
+            else
+                continue,
+            end
         end
         for i_wave = 1:25
+            if (~isempty(processed.hpositions.wave{i_participant, 2}{1, i_wave}))
             plot(...
                 processed.hpositions.wave{i_participant, 2}{1, i_wave}(:, 3), ...
                 processed.hpositions.wave{i_participant, 2}{1, i_wave}(:, 1), 'b');
+                        else
+                continue,
+            end
         end
         for i_wave = 1:25
+            if (~isempty(processed.hpositions.wave{i_participant, 3}{1, i_wave}))
             plot(...
                 processed.hpositions.wave{i_participant, 3}{1, i_wave}(:, 3), ...
                 processed.hpositions.wave{i_participant, 3}{1, i_wave}(:, 1), 'r');
+                        else
+                continue,
+            end
         end
     catch
         fprintf('No waving event data to plot for participant %u \n', i_participant);

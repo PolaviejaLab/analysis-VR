@@ -28,8 +28,6 @@ for i_subject = 1:size(testWave, 1)
             wavesPerTrial{i_subject, i_trial}{1} =  NaN;
             wavesPerTrial{i_subject, i_trial}{2} = NaN;
         end
-        
     end
-    
-    
+
 end

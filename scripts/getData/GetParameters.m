@@ -36,9 +36,9 @@ params.conditionDynamic = {...
     'Detached hand dynamic', ...
     'Incongruent movement'};
 
-
 % Analysis
-params.tags.Controller = 'WaveController';
+params.tags.Controller.wave = 'WaveController';
+params.tags.Controller.trial = 'TrialController';
 params.tags.Event.waveStart = 'Entering state Target';
 params.tags.Event.waveEnd{1} = 'Waved correctly'; %  'Entering state Waved'
 params.tags.Event.waveEnd{2} = 'Waved incorrectly';

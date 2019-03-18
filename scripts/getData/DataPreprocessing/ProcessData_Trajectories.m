@@ -33,9 +33,9 @@ fprintf('Unused subjects removed \n');
 
 %% Clear Timestamps Waving Evens
 
-[preprocessed.timestamps.waves_processed] = ...
+[preprocessed.timestamps.waves_processed, preprocessed.timestamps.waves_processed2] = ...
     cutWavesPerTrial(preprocessed.timestamps.waves_used, ...
-    preprocessed.timestamps.trials_used);
+    preprocessed.timestamps.trials_used, params);
 
 
 %% Extract Trial Trajectories
@@ -59,7 +59,6 @@ for i_participant = 1:numel(vecUsed)
             ind_end = NaN;
             warning('No hand positions found');
         else
-            
             ind_start = strmatch(aux_start, ...
                 preprocessed.handp.timestamps_used{i_participant, i_trial});
             ind_end = strmatch(aux_end, ...

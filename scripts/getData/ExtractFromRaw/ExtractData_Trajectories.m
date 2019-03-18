@@ -5,6 +5,7 @@ addpath('..\');
 
 filesSubjects = dir(fullfile(params.dataDirectory, 'Subject*'));
 
+
 %% Extract Trajectories
 for i_participant = 1:numel(filesSubjects)
     subjectFolder = fullfile(params.dataDirectory, ...
@@ -51,29 +52,26 @@ for i_participant = 1:numel(filesSubjects)
             'Started');
         trialTimestamps{i_participant, 2} = get_timestamps (logFile_name, 'TrialController', ...
             'Entering state TrialFinished');
-        
         fprintf('Trial timestamps dat extracted \n');
-        
     catch
-        fprintf('No trial timestamps data available \n');
         trialTimestamps{i_participant, 1} = NaN;
         trialTimestamps{i_participant, 2} = NaN;
+        fprintf('No trial timestamps data available \n');
     end
     
     %% Extract waves timestamps
     
     try
         % Start and end of the trials
-        waveTimestamps{i_participant, 1} = get_timestamps (logFile_name, 'WaveController', ...
-            params.tags.Event.waveStart);
-        waveTimestamps{i_participant, 2} = get_timestamps (logFile_name, 'WaveController', ...
-            params.tags.Event.waveEnd{1});
-        
+        waveTimestamps{i_participant, 1} = get_timestamps (logFile_name, ...
+            params.tags.Controller.wave, params.tags.Event.waveStart);
+        waveTimestamps{i_participant, 2} = get_timestamps (logFile_name, ...
+            params.tags.Controller.wave, params.tags.Event.waveEnd{1});
         fprintf('Waving events timestamps data extracted \n');
     catch
-        fprintf('No waving events timestamp data available \n');
         waveTimestamps{i_participant, 1} = NaN;
         waveTimestamps{i_participant, 2} = NaN;
+        fprintf('No waving events timestamp data available \n');
     end
 end
 

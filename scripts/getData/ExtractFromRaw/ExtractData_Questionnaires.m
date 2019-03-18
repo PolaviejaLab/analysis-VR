@@ -23,7 +23,7 @@ sociodem_array = table2array(sociodem_table(vecUsed, 3:9));
 
 
 %% Load questionnaire data
-[QuestionnaireData] = GetDataFromQuestionnaires(dataDirectory);
+[QuestionnaireData] = GetDataFromQuestionnaires(params.dataDirectory);
 
 
 %% Questionnaire Data
@@ -33,7 +33,7 @@ QuestionnaireData.dynamicUsed = QuestionnaireData.dynamic(:, :, vecUsed);
 load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\QuestionnaireOrder.mat');
 OrderQuestionnaires.All = orderArray; 
 OrderQuestionnaires.Used = orderArray(:, vecUsed);
-save
+
 
 %% Save parameters
 save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\Variables.mat', ...

@@ -9,16 +9,7 @@ results.std = [nanstd(data1(:)), nanstd(data2(:))];
 
 results.stats.SignedRank = signrank (data1, data2);
 
-% [R, P] = corrcoef (data1, data2);
-% results.stats.pearsonR = R(1,2);
-% results.stats.RcorrPval = P(1,2);
-
-
 [results.stats.spearmanRho, results.stats.RhocorrPval] = ...
     corr(data1', data2', 'Type', 'Spearman');
-
-
-% [results.stats.groups] = analysisGroups (data1, data2);
-
 
 end

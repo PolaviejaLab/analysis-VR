@@ -8,10 +8,10 @@ params.dataDirectory = 'V:\Data\01. Pilots_ExperimentDiscontinuity';
 % Questionnaires
 params.quest.ownership = 1:4;
 params.quest.similar = 5;
-params.quest.ownershipcontrol = 6-7;
-params.quest.agency = 8-10;
-params.quest.agencycontrol = 11-12;
-params.quest.location = 13-14;
+params.quest.ownershipcontrol = 6:7;
+params.quest.agency = 8:10;
+params.quest.agencycontrol = 11:12;
+params.quest.location = 13:14;
 
 % Conditions
 params.conditions = {...

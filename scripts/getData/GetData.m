@@ -1,4 +1,4 @@
-function [results, cube, mat_order] = GetData()
+function [resultsByCondition, responseCube, OrderArray] = GetData()
 
 % ORDERESPONSES Takes the questionnaire responses of all the subjects and
 % generates a matrix/condition
@@ -16,29 +16,32 @@ params = GetParameters ();
 files = dir(fullfile(params.dataDirectory, 'Subject*'));
 
 nSubjects = numel (files);
-results = struct();
+resultsByCondition = struct();
 
 map = [1 2 3 4 0 5 0 6];
-cube = nan(14, 6, nSubjects);
+responseCube = nan(14, 6, nSubjects);
 
 for i_subject = 1:nSubjects
     answersFile = fullfile(params.dataDirectory, files(i_subject).name, 'answers.csv');
     protocolFile = fullfile(params.dataDirectory, files(i_subject).name, 'protocol.csv');
     
     [conditionOrder] = getconditionorder(protocolFile);
-    mat_order(i_subject, :) = conditionOrder;
+    OrderArray(i_subject, :) = conditionOrder;
     questionnaireResponses = csvread(answersFile);
     
     nTrials = size(questionnaireResponses, 2);
     
     for i_trial = 1:nTrials
         name = ['condition' num2str(conditionOrder(i_trial))];
-        results.(name)(:, i_subject) = questionnaireResponses(:, i_trial);
+        resultsByCondition.(name)(:, i_subject) = questionnaireResponses(:, i_trial);
         
-        cube(:, i_trial, i_subject) = questionnaireResponses(:, map(conditionOrder(i_trial)));
+        responseCube(:, i_trial, i_subject) = questionnaireResponses(:, map(conditionOrder(i_trial)));
     end
     
 end
+
+save('..\..\data\results_pilots', 'resultsByCondition', 'responseCube');
+save('..\..\data\data_pilots', 'OrderArray');
 
 end
 

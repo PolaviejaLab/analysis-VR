@@ -40,8 +40,8 @@ for i_subject = 1:nSubjects
     
 end
 
-save('..\..\data\results_pilots', 'resultsByCondition', 'responseCube');
-save('..\..\data\data_pilots', 'OrderArray');
+save('..\..\data\01. Pilot-Experiments\results_pilots', 'resultsByCondition', 'responseCube');
+save('..\..\data\01. Pilot-Experiments\data_pilots', 'OrderArray');
 
 end
 

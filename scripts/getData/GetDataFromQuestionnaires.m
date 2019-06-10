@@ -13,30 +13,24 @@ for i_subject = 1:nSubjects
     filesResponses = dir(fullfile(questionnaireFolder, 'Responses Trial*.csv'));
     nFilesResponses = length(filesResponses);
     
+    order_ = orderArray(:, i_subject);
     
     for j = 1:nFilesResponses
         fileName = ...
             fullfile(questionnaireFolder, filesResponses(j).name);
-        responseTable = csvread(fileName);
+              
+        protocolID = fopen(fileName);
+        table_ = textscan(protocolID, '%s %s');
         
+        [responseArray] = getResponsesFromFile (table_)
+    
+        responseMat(:, order_(j)) = responseArray;
     end
     
+    QuestionnaireData
     
-    
-    
-    
-    
-    
-    order_ = orderArray(:, i_subject);
-    
-    responseTable = [responseTable(:, order_(1:2)), responseTable(:,3)];
-    dynamic_table = [dynamic_table(:, order_(3:4)-2), dynamic_table(:,3)];
-    
-    static_array(:,:, i_subject) = responseTable;
-    dynamic_array(:,:, i_subject) = dynamic_table;
+
     
 end
-QuestionnaireData.static = static_array;
-QuestionnaireData.dynamic = dynamic_array;
 
 end

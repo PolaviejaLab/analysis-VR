@@ -2,7 +2,7 @@ function [QuestionnaireData] = GetDataFromQuestionnaires (dataDirectory)
 
 orderArray = getOrderFromLog(dataDirectory);
 
-filesSubjects = dir(fullfile(dataDirectory, 'Subject*'));
+filesSubjects = dir(fullfile(dataDirectory, 'pilot_num*'));
 nSubjects = length(filesSubjects);
 
 for i_subject = 1:nSubjects
@@ -10,21 +10,29 @@ for i_subject = 1:nSubjects
     questionnaireFolder = fullfile(dataDirectory, filesSubjects(i_subject).name, '\Questionnaires\');
     
     % get questionnaire file
-    files_static = dir(fullfile(questionnaireFolder, 'staticblock.csv'));
-    files_dynamic = dir(fullfile(questionnaireFolder, 'dynamicblock.csv'));
+    filesResponses = dir(fullfile(questionnaireFolder, 'Responses Trial*.csv'));
+    nFilesResponses = length(filesResponses);
     
-    fileName_static = fullfile(questionnaireFolder, files_static(1).name);
-    fileName_dynamic = fullfile(questionnaireFolder, files_dynamic(1).name);
     
-    static_table = csvread(fileName_static);
-    dynamic_table = csvread(fileName_dynamic);
+    for j = 1:nFilesResponses
+        fileName = ...
+            fullfile(questionnaireFolder, filesResponses(j).name);
+        responseTable = csvread(fileName);
+        
+    end
+    
+    
+    
+    
+    
+    
     
     order_ = orderArray(:, i_subject);
     
-    static_table = [static_table(:, order_(1:2)), static_table(:,3)];
+    responseTable = [responseTable(:, order_(1:2)), responseTable(:,3)];
     dynamic_table = [dynamic_table(:, order_(3:4)-2), dynamic_table(:,3)];
     
-    static_array(:,:, i_subject) = static_table;
+    static_array(:,:, i_subject) = responseTable;
     dynamic_array(:,:, i_subject) = dynamic_table;
     
 end

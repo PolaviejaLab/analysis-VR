@@ -23,12 +23,15 @@ sociodem_array = table2array(sociodem_table(vecUsed, 3:9));
 
 
 %% Load questionnaire data
-[QuestionnaireData] = GetDataFromQuestionnaires(params.dataDirectory);
+[QuestionnaireData.visuomotorInformation] = ...
+    GetDataFromQuestionnaires(strcat(params.dataDirectory, '\Visuomotor Information'));
+[QuestionnaireData.outcomeOwnership] = ...
+    GetDataFromQuestionnaires(strcat(params.dataDirectory, '\Outcome Ownership'));
 
 
 %% Questionnaire Data
-QuestionnaireData.staticUsed = QuestionnaireData.static(:, :, vecUsed);
-QuestionnaireData.dynamicUsed = QuestionnaireData.dynamic(:, :, vecUsed);
+QuestionnaireData.outcomeOwnershipUsed = QuestionnaireData.outcomeOwnership(:, :, vecUsed);
+QuestionnaireData.visuomotorInformationUsed = QuestionnaireData.visuomotorInformation(:, :, vecUsed);
 
 load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\QuestionnaireOrder.mat');
 OrderQuestionnaires.All = orderArray; 

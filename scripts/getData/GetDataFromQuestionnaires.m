@@ -1,4 +1,4 @@
-function [QuestionnaireData] = GetDataFromQuestionnaires (dataDirectory)
+function [responses, order_matrix] = GetDataFromQuestionnaires (dataDirectory)
 
 orderArray = getOrderFromLog(dataDirectory);
 
@@ -18,19 +18,18 @@ for i_subject = 1:nSubjects
     for j = 1:nFilesResponses
         fileName = ...
             fullfile(questionnaireFolder, filesResponses(j).name);
-              
+        
         protocolID = fopen(fileName);
         table_ = textscan(protocolID, '%s %s');
         
-        [responseArray] = getResponsesFromFile (table_)
-    
+        [responseArray] = getResponsesFromFile (table_);
+        
         responseMat(:, order_(j)) = responseArray;
     end
     
-    QuestionnaireData
-    
-
+    responses(:, :, i_subject) = responseMat;
+    order_matrix(:, i_subject) = order_;
     
 end
-
+fclose('all');
 end

@@ -57,13 +57,13 @@ plot(data1(:, ind_hig), data2(:, ind_hig), '.', ...
     'MarkerSize', 20, 'color', 'k'); % [80/255, 80/255, 80/255]); 
 
 
-if (statValues.corrPval < 0.001)
+if (statValues.RhocorrPval < 0.001)
     text(1,6, 'p<0.001', 'fontname', 'arial');
-elseif (statValues.corrPval < 0.05)
-    pval = round(statValues.corrPval*1000)/1000;
+elseif (statValues.RhocorrPval < 0.05)
+    pval = round(statValues.RhocorrPval*1000)/1000;
     text(1, 6, strcat('p= ', num2str(pval)), 'fontname', 'arial');
 else 
-    pval = round(statValues.corrPval * 100)/100;
+    pval = round(statValues.RhocorrPval * 100)/100;
     text(1, 6, strcat('p= ', num2str(pval)), 'fontname', 'arial');
 end
 

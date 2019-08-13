@@ -2,12 +2,15 @@ function [subjectData] = GetSociodemData (input_array)
 nParticipants = size(input_array, 1);
 
 % changes according to new tables
+% subjectID = 1;
 gender_col = 1;
 age_col = 2;
 scholarity_col = 3;
 gaming_col = 4;
 VRusers_col = 5; 
-handedness_col = 7;
+handedness_col = 6;
+sessionOrder_col = 7;
+gsr_col = 8;
 
 % Gender data
 gender_array = input_array(:, gender_col);
@@ -53,6 +56,17 @@ subjectData.VRUse.Percentage = [...
     numel(VR_array(VR_array == 3))/nParticipants * 100;
     ];
 
+
+% Order
+OrderSession_array = input_array(:, sessionOrder_col);
+
+subjectData.OrderSession.VMOO = find(OrderSession_array == 1);
+subjectData.OrderSession.OOVM = find(OrderSession_array == 2);
+
+subjectData.OrderSession.Percentage = [ ...
+    numel(OrderSession_array(OrderSession_array == 1))/nParticipants * 100;
+    numel(OrderSession_array(OrderSession_array == 2))/nParticipants * 100;
+    ];
 
 % Handedness (EHI - Davis 1970)
 handedness_array = input_array(:, handedness_col);

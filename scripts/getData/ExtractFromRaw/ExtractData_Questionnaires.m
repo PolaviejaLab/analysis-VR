@@ -1,5 +1,6 @@
 addpath('..');
 
+
 %% Variables
 [params] = GetParameters();
 
@@ -13,16 +14,17 @@ addpath('..');
 fileName = 'sociodemographics.txt';
 sociodem_table = readtable(fullfile(params.dataDirectory, fileName));
 
-% Subjects Used for Analysis (Inclusion Criteria)
-column_used = 8; % Change according to file
+% Subjects Used for Analysis (Inclusion Criteria: the tracking workedm the
+% the participant followed our instructions, naîve to the study)
+column_used = 11; % Change according to file
 vecUsed = findUsed(sociodem_table, column_used);
 
 % SubjectData of the data used for analysis
-sociodem_array = table2array(sociodem_table(vecUsed, 3:9));
+sociodem_array = table2array(sociodem_table(vecUsed, 3:10));
 [SubjectData] = GetSociodemData (sociodem_array);
 
 
-%% Load questionnaire data
+ %% Load questionnaire data
 [QuestionnaireData.visuomotorInformation.responses, QuestionnaireData.visuomotorInformation.order_matrix] = ...
     GetDataFromQuestionnaires(strcat(params.dataDirectory, '\Visuomotor Information'));
 QuestionnaireData.visuomotorInformation.responses = ...

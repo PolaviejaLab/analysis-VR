@@ -1,12 +1,7 @@
 function [params] = GetParameters ()
 % Folders
-params.dataDirectory = 'V:\Data\07. OutcomeNoise';
+params.dataDirectory = 'E:\Data\08. CB_VR_Outcome';
 
-params.waves_trial = [...
-    1:30;
-    31:60;
-    61:90;
-    ];
 
 % Questionnaires
 params.quest.owner = 1:4;

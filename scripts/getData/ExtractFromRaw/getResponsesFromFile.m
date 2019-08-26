@@ -19,6 +19,4 @@ end
 sortedMat = sortrows(resMat, 1);
 responses = sortedMat(:, 2);
 
-
-
 end 

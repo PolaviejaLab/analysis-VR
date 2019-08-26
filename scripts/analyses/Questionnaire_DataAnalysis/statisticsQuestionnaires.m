@@ -17,7 +17,8 @@ results.stats.RcorrPval = P(1,2);
 [results.stats.spearmanRho, results.stats.RhocorrPval] = ...
     corr(data1', data2', 'Type', 'Spearman');
 
-[results.stats.groups] = analysisGroups (data1, data2);
+[results.stats.p_groups, results.stats.n_groups] = ...
+    analysisGroups (data1, data2);
 
 
 end

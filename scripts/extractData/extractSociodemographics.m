@@ -8,6 +8,7 @@ sociodem_table = readtable(fullfile(params.dataDirectory, sociodemographicsFile)
 % followed our instructions, naîve to the study)
 indUsed = find(table2array(sociodem_table(:, params.sociodem.used)));
 
+
 subjectData.nParticipants = numel(indUsed);
 
 % subject code
@@ -74,5 +75,9 @@ subjectData.percFirstSession = [...
 % Handedness (EHI - Davis 1970)
 subjectData.EHI = table2array(sociodem_table(indUsed, params.sociodem.EHI));
 subjectData.EHIMean = [mean(subjectData.EHI), std(subjectData.EHI)];
+
+% Subjects with GSR
+subjectData.usedGSR = find(table2array(sociodem_table(indUsed, params.sociodem.GSR)));
+subjectData.GSRorder = table2array(sociodem_table(subjectData.usedGSR, params.sociodem.sessionOrder));
 
 end

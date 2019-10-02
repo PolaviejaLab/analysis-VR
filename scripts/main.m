@@ -11,7 +11,7 @@ addpath('analyzeData/questionnaires');
 %% Extract Raw Data
 [subjectData] = extractSociodemographics (params, 'sociodemographics.txt');
 
-[questionnaireData.preprocessed] = extractQuestionnaires(params, subjectData);
+[questionnaireData.preprocessed, var] = extractQuestionnaires(params, subjectData);
 
 save(strcat(params.dataDirectory, '\Results\subjectData'), 'subjectData');
 save(strcat(params.dataDirectory, '\Results\preprocessedQuestionnaires.mat'), ...
@@ -19,41 +19,41 @@ save(strcat(params.dataDirectory, '\Results\preprocessedQuestionnaires.mat'), ..
 
 %% Process Data
 questionnaireData.processed.owner.visuomotor = ...
-    squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation.orderedResponses(params.quest.owner, :, :))));
+    squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation(params.quest.owner, :, :))));
 questionnaireData.processed.ownerC.visuomotor = ...
-    squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation.orderedResponses(params.quest.ownerCnt, :, :))));
+    squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation(params.quest.ownerCnt, :, :))));
 questionnaireData.processed.owner.outcome = ...
-    squeeze(nanmean(squeeze(questionnaireData.preprocessed.outcomeOwnership.orderedResponses(params.quest.owner, :, :))));
+    squeeze(nanmean(squeeze(questionnaireData.preprocessed.outcomeOwnership(params.quest.owner, :, :))));
 questionnaireData.processed.ownerC.outcome = ...
-    squeeze(nanmean(squeeze(questionnaireData.preprocessed.outcomeOwnership.orderedResponses(params.quest.ownerCnt, :, :))));
+    squeeze(nanmean(squeeze(questionnaireData.preprocessed.outcomeOwnership(params.quest.ownerCnt, :, :))));
 
 questionnaireData.processed.agency.visuomotor = ...
-    squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation.orderedResponses(params.quest.agenAction, :, :))));
+    squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation(params.quest.agenAction, :, :))));
 questionnaireData.processed.agencyC.visuomotor = ...
-    squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation.orderedResponses(params.quest.agenActionCnt, :, :))));
+    squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation(params.quest.agenActionCnt, :, :))));
 questionnaireData.processed.agency.outcome = ...
-    squeeze(nanmean(squeeze(questionnaireData.preprocessed.outcomeOwnership.orderedResponses(params.quest.agenAction, :, :))));
+    squeeze(nanmean(squeeze(questionnaireData.preprocessed.outcomeOwnership(params.quest.agenAction, :, :))));
 questionnaireData.processed.agencyC.outcome = ...
-    squeeze(nanmean(squeeze(questionnaireData.preprocessed.outcomeOwnership.orderedResponses(params.quest.agenActionCnt, :, :))));
+    squeeze(nanmean(squeeze(questionnaireData.preprocessed.outcomeOwnership(params.quest.agenActionCnt, :, :))));
 
 questionnaireData.processed.outcome.visuomotor = ...
-    squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation.orderedResponses(params.quest.agenOutcome, :, :))));
+    squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation(params.quest.agenOutcome, :, :))));
 questionnaireData.processed.outcomeC.visuomotor = ...
-    squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation.orderedResponses(params.quest.agenOutcomeCnt, :, :))));
+    squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation(params.quest.agenOutcomeCnt, :, :))));
 questionnaireData.processed.outcome.outcome = ...
-    squeeze(nanmean(squeeze(questionnaireData.preprocessed.outcomeOwnership.orderedResponses(params.quest.agenOutcome, :, :))));
+    squeeze(nanmean(squeeze(questionnaireData.preprocessed.outcomeOwnership(params.quest.agenOutcome, :, :))));
 questionnaireData.processed.outcomeC.outcome = ...
-    squeeze(nanmean(squeeze(questionnaireData.preprocessed.outcomeOwnership.orderedResponses(params.quest.agenOutcomeCnt, :, :))));
+    squeeze(nanmean(squeeze(questionnaireData.preprocessed.outcomeOwnership(params.quest.agenOutcomeCnt, :, :))));
 
 questionnaireData.processed.similarity.visuomotor = ...
-    squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation.orderedResponses(params.quest.similar, :, :))));
+    squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation(params.quest.similar, :, :))));
 questionnaireData.processed.similarity.outcome = ...
-    squeeze(nanmean(squeeze(questionnaireData.preprocessed.outcomeOwnership.orderedResponses(params.quest.similar, :, :))));
+    squeeze(nanmean(squeeze(questionnaireData.preprocessed.outcomeOwnership(params.quest.similar, :, :))));
 
 questionnaireData.processed.location.visuomotor = ...
-    squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation.orderedResponses(params.quest.location, :, :))));
+    squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation(params.quest.location, :, :))));
 questionnaireData.processed.location.outcome = ...
-    squeeze(nanmean(squeeze(questionnaireData.preprocessed.outcomeOwnership.orderedResponses(params.quest.location, :, :))));
+    squeeze(nanmean(squeeze(questionnaireData.preprocessed.outcomeOwnership(params.quest.location, :, :))));
 
 
 save(strcat(params.dataDirectory, '\Results\preprocessedQuestionnaires.mat'), ...
@@ -100,7 +100,7 @@ questionnaireData.results.outcome.outcome = ...
 GSRData.preprocessed = ...
     extractGSR (params, subjectData, subjectData.subjectID);
 
-% GSRData.processed = processGSR (params, GSRData);
+GSRData.processed = processGSR (params, GSRData, subjectData, var);
 
 
 

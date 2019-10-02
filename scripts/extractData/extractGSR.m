@@ -55,5 +55,19 @@ for i = 1:numel(subjectData.usedGSR)
         preprocessedData.timestamps{i, 2} = timestampsMat{1, 2};
     end
     
+    
+    %% Get Timestamps from Log
+    
+    experimentType = '\Visuomotor Information\';
+    [preprocessedData.timestamps.visuomotorInformation] = ...
+        getTimestampsFromLog(params, experimentType, ...
+        subjectData.subjectID(subjectData.usedGSR(i)));
+    
+    experimentType = '\Outcome Ownership\';
+    [preprocessedData.timestamps.outcomeOwnership] = ...
+        getTimestampsFromLog(params, experimentType, ...
+        subjectData.subjectID(subjectData.usedGSR(i)));
+    
+    
 end
 end

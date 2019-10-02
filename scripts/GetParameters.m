@@ -41,6 +41,9 @@ params.conditionsOutcomeOwnership = {...
 % Analysis
 params.tags.Controller.wave = 'WaveController';
 params.tags.Controller.trial = 'TrialController';
+params.tags.Event.Start = 'Started';
+params.tags.Event.End = 'Entering state End';
+params.tags.Event.trialEnd = 'SpTrialFinished';
 params.tags.Event.waveStart = 'Entering state Target';
 params.tags.Event.waveEnd{1} = 'Waved correctly'; %  'Entering state Waved'
 params.tags.Event.waveEnd{2} = 'Waved incorrectly';

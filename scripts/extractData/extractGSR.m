@@ -4,7 +4,7 @@ folderName = 'GSR_BonsaiFiles';
 
 folderID = fullfile(params.dataDirectory, folderName);
 
-for i = 1:numel(subjectData.usedGSR)
+for i = 1:3 % numel(subjectData.usedGSR)
     
     filesGSR = dir(char(fullfile(params.dataDirectory, folderName, ...
         participants(subjectData.usedGSR(i)), '*.bin')));

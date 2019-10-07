@@ -99,10 +99,10 @@ questionnaireData.results.outcome.outcome = ...
 
 GSRData.preprocessed = ...
     extractGSR (params, subjectData, subjectData.subjectID);
-
-GSRData.processed = processGSR (params, GSRData, subjectData, var);
-
-
+ 
+% GSRData.processed = processGSR (params, GSRData, subjectData, var);
+% 
+% 
 
 
 

@@ -3,9 +3,11 @@ function [timestamps] = getTimestampsFromLog (params, ...
 
 try
     % Log File
-    file_log = dir(fullfile(params.dataDirectory, experimentType, char(participant), '*.log'));
+    file_log = dir(fullfile(params.dataDirectory, experimentType, ...
+        char(participant), '*.log'));
     fileName_log = fullfile(file_log(1).name);
-    fileID = fopen(fullfile(params.dataDirectory, experimentType, char(participant), fileName_log));
+    fileID = fopen(fullfile(params.dataDirectory, experimentType, ...
+        char(participant), fileName_log));
     table_ = textscan(fileID, '%q %q %q', 'Delimiter', '\t');
     
     timestamps_ = char(table_{1, 1});
@@ -16,11 +18,14 @@ catch
     return, 
 end
 
+params.tags.Controller.trial; 
+params.tags.Event.Start; 
+params.tags.Event.trialEnd;
 
 
-params.tags.Controller.trial,
-params.tags.Event.Start,
+    
+ind_trial = strncmp(char(table_{1, 2}), params.tags.Controller.trial, 3);
+    
 
-params.tags.Event.trialEnd,
 
-end 
+end  

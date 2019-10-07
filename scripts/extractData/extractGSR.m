@@ -45,14 +45,14 @@ for i = 1:numel(subjectData.usedGSR)
         
         fid = fopen(IDfileTimestamp);
         timestampsMat(iFile) = textscan(fid, '%q');
-        
     end
+    
     if subjectData.GSRorder(i) == 2
         preprocessedData.timestamps{i, 1} = timestampsMat{1, 2};
         preprocessedData.timestamps{i, 2} = timestampsMat{1, 1};
     else
-        preprocessedData.timestamps{i, 1} = timestampsMat{1, 1};
-        preprocessedData.timestamps{i, 2} = timestampsMat{1, 2};
+        preprocessedData.timestamps{i, 1} = timestampsMat{1, 2};
+        preprocessedData.timestamps{i, 2} = timestampsMat{1, 1};
     end
     
     
@@ -62,12 +62,12 @@ for i = 1:numel(subjectData.usedGSR)
     [preprocessedData.timestamps.visuomotorInformation] = ...
         getTimestampsFromLog(params, experimentType, ...
         subjectData.subjectID(subjectData.usedGSR(i)));
-    
-    experimentType = '\Outcome Ownership\';
-    [preprocessedData.timestamps.outcomeOwnership] = ...
-        getTimestampsFromLog(params, experimentType, ...
-        subjectData.subjectID(subjectData.usedGSR(i)));
-    
+     
+%     experimentType = '\Outcome Ownership\';
+%     [preprocessedData.timestamps.outcomeOwnership] = ...
+%         getTimestampsFromLog(params, experimentType, ...
+%         subjectData.subjectID(subjectData.usedGSR(i)));
+%     
     
 end
 end

@@ -33,7 +33,4 @@ ind_trialEnd = findsame(...
 timestamps.trial_start = timestamps_(ind_trialStart, :);
 timestamps.trial_end = timestamps_(ind_trialEnd, :);
 
-
-
-
 end  

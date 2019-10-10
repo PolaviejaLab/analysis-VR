@@ -4,7 +4,7 @@ folderName = 'GSR_BonsaiFiles';
 
 folderID = fullfile(params.dataDirectory, folderName);
 
-for i = 1:3 % numel(subjectData.usedGSR)
+for i = 1:numel(subjectData.usedGSR)
     
     filesGSR = dir(char(fullfile(params.dataDirectory, folderName, ...
         participants(subjectData.usedGSR(i)), '*.bin')));
@@ -16,6 +16,8 @@ for i = 1:3 % numel(subjectData.usedGSR)
             char(participants(subjectData.usedGSR(i))), ', no timestamps file'));
         preprocessedData.GSR{i, 1} = [];
         preprocessedData.GSR{i, 2} = [];
+        preprocessedData.timestamps{i, 1} = [];
+        preprocessedData.timestamps{i, 2} = [];
         continue,
     end
     
@@ -51,23 +53,23 @@ for i = 1:3 % numel(subjectData.usedGSR)
         preprocessedData.timestamps{i, 1} = timestampsMat{1, 2};
         preprocessedData.timestamps{i, 2} = timestampsMat{1, 1};
     else
-        preprocessedData.timestamps{i, 1} = timestampsMat{1, 2};
-        preprocessedData.timestamps{i, 2} = timestampsMat{1, 1};
+        preprocessedData.timestamps{i, 1} = timestampsMat{1, 1};
+        preprocessedData.timestamps{i, 2} = timestampsMat{1, 2};
     end
     
     
     %% Get Timestamps from Log
     
     experimentType = '\Visuomotor Information\';
-    [preprocessedData.timestamps.visuomotorInformation] = ...
+    [preprocessedData.timestampsLog{i, 1}] = ...
         getTimestampsFromLog(params, experimentType, ...
         subjectData.subjectID(subjectData.usedGSR(i)));
-     
-%     experimentType = '\Outcome Ownership\';
-%     [preprocessedData.timestamps.outcomeOwnership] = ...
-%         getTimestampsFromLog(params, experimentType, ...
-%         subjectData.subjectID(subjectData.usedGSR(i)));
-%     
+    
+    experimentType = '\Outcome Ownership\';
+    [preprocessedData.timestampsLog{i, 2}] = ...
+        getTimestampsFromLog(params, experimentType, ...
+        subjectData.subjectID(subjectData.usedGSR(i)));
+    
     
 end
 end

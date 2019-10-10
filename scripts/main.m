@@ -2,6 +2,7 @@
 addpath('extractData');
 addpath('figures');
 addpath('analyzeData/questionnaires');
+addpath('processData');
 
 %% Find variables 
 % This file should be modified with the parameters of each experiment
@@ -100,14 +101,8 @@ questionnaireData.results.outcome.outcome = ...
 GSRData.preprocessed = ...
     extractGSR (params, subjectData, subjectData.subjectID);
  
-% GSRData.processed = processGSR (params, GSRData, subjectData, var);
-% 
-% 
-
-
-
-
-
+GSRData.processed = ...
+    processGSR (GSRData.preprocessed, subjectData, var);
 
 
 %%

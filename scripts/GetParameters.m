@@ -2,6 +2,8 @@ function [params] = GetParameters ()
 % Folders
 params.dataDirectory = 'E:\Data\08. CB_VR_Outcome';
 
+params.experimentTypes = {'Visuomotor Information' 'Outcome Ownership'};
+
 % Sociodemographic table
 params.sociodem.number = 1;
 params.sociodem.subjectID = 2;
@@ -48,6 +50,22 @@ params.tags.Event.waveStart = 'Entering state Target';
 params.tags.Event.waveEnd{1} = 'Waved correctly'; %  'Entering state Waved'
 params.tags.Event.waveEnd{2} = 'Waved incorrectly';
 params.tags.Event.waveEnd{3} = 'Wave late'; % this one should be ignored
+
+% Trial Information File Header
+
+params.trialInformation.trialNumber = 1;
+params.trialInformation.continuity = 2;
+params.trialInformation.setThreat = 3;
+params.trialInformation.noiseType = 4;
+params.trialInformation.knifeLocation = 5;
+params.trialInformation.genderModel = 6;
+params.trialInformation.handOffset = 7;
+params.trialInformation.probability = 8;
+params.trialInformation.totalWaves = 9; % this seems to be wrong
+params.trialInformation.correctWaves = 10;
+params.trialInformation.incorrectWaves = 11;
+params.trialInformation.lateWaves = 12;
+
 
 
 end

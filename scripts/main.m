@@ -18,6 +18,14 @@ save(strcat(params.dataDirectory, '\Results\subjectData'), 'subjectData');
 save(strcat(params.dataDirectory, '\Results\preprocessedQuestionnaires.mat'), ...
     'questionnaireData');
 
+
+%% Extract Raw data for the .csv files
+
+[var.trialInformation, var.waves] = extractVariables (params, subjectData, var);
+
+
+
+
 %% Process Data
 questionnaireData.processed.owner.visuomotor = ...
     squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation(params.quest.owner, :, :))));
@@ -60,9 +68,8 @@ questionnaireData.processed.location.outcome = ...
 save(strcat(params.dataDirectory, '\Results\preprocessedQuestionnaires.mat'), ...
     'questionnaireData');
 
+
 %% 
-
-
 % mean, medians, std, and normality distribution. 
 questionnaireData.results.ownership.visuomotor = ...
     data_results(questionnaireData.processed.owner.visuomotor); 
@@ -96,6 +103,7 @@ questionnaireData.results.outcome.outcome = ...
     pairwiseComparisons (questionnaireData.processed);
 
 
+
 %% GSR
 
 GSRData.preprocessed = ...
@@ -103,26 +111,4 @@ GSRData.preprocessed = ...
  
 GSRData.processed = ...
     processGSR (GSRData.preprocessed, subjectData, var);
-
-
-%%
-
-
-% %% Plot
-% 
-% load(strcat(params.dataDirectory, '\Results\preprocessedQuestionnaires.mat'));
-% 
-% 
-% fig1 = figure(1);
-% set(fig1, 'units', 'centimeters', 'position', [5 5 10.0 15.0]);
-% plotBoxplots(questionnaireData.processed.owner.visuomotor, ...
-%     'Visuomotor Information - Sense of ownership');
-% 
-% 
-
-
-
-
-
-
 

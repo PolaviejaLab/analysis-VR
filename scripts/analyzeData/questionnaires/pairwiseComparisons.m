@@ -59,11 +59,11 @@ function [results] = pairwiseComparisons (data)
     data.outcome.visuomotor(3, :), data.outcome.visuomotor(4, :));
 
 
-% Outcome ownership - sense of ownership
-[results.ownership.outcome.congruent_imovement] = statisticsQuestionnaires(...
+% Block B - sense of ownership
+[results.ownership.outcome.congruent_detached] = statisticsQuestionnaires(...
     data.owner.outcome(1, :), data.owner.outcome(2, :));
     
-[results.ownership.outcome.congruent_detached] = statisticsQuestionnaires(...
+[results.ownership.outcome.congruent_ioutcome] = statisticsQuestionnaires(...
     data.owner.outcome(1, :), data.owner.outcome(3, :));
 
 [results.ownership.outcome.congruent_idetached] = statisticsQuestionnaires(...
@@ -78,7 +78,7 @@ function [results] = pairwiseComparisons (data)
 [results.ownership.outcome.ioutcome_idetached] = statisticsQuestionnaires (...
     data.owner.outcome(3, :), data.owner.outcome(4, :));
 
-% Visuomotor Information, sense of agency (action)
+% Block B, sense of agency (action)
 [results.agency.outcome.congruent_detached] = statisticsQuestionnaires(...
     data.agency.outcome(1, :), data.agency.outcome(2, :));
     
@@ -98,7 +98,7 @@ function [results] = pairwiseComparisons (data)
     data.agency.outcome(3, :), data.agency.outcome(4, :));
 
 
-% Visuomotor Information, outcome agency (action)
+% Block B, outcome agency (action)
 [results.outcome.outcome.congruent_detached] = statisticsQuestionnaires(...
     data.outcome.outcome(1, :), data.outcome.visuomotor(2, :));
     

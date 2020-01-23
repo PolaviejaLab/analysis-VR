@@ -225,29 +225,29 @@ diffownerB = questionnaireData.processed.owner.outcome(1, :) - questionnaireData
 
 [a, b] = corr(diffownerA', diffoutcomeA', 'Type', 'Spearman');
 figure,
-plotCorrelationDifference(diffownerA', diffoutcomeA', a, b);
+plotCorrelationDifference(diffownerA', diffoutcomeA', a, b); lsline
 
 [a, b] = corr(diffownerB', diffoutcomeB', 'Type', 'Spearman');
 figure,
-plotCorrelationDifference(diffownerB', diffoutcomeB', a, b);
+plotCorrelationDifference(diffownerB', diffoutcomeB', a, b); lsline
 
 
 [a, b] = corr(diffagenA', diffoutcomeA', 'Type', 'Spearman');
 figure,
-plotCorrelationDifference(diffagenA', diffoutcomeA', a, b);
+plotCorrelationDifference(diffagenA', diffoutcomeA', a, b);lsline
 
 [a, b] = corr(diffagenB', diffoutcomeB', 'Type', 'Spearman');
 figure,
-plotCorrelationDifference(diffagenB', diffoutcomeB', a, b);
+plotCorrelationDifference(diffagenB', diffoutcomeB', a, b);lsline
 
 
 [a, b] = corr(diffownerA', diffagenB', 'Type', 'Spearman');
 figure,
-plotCorrelationDifference(diffownerA', diffagenA', a, b);
+plotCorrelationDifference(diffownerA', diffagenA', a, b);lsline
 
 [a, b] = corr(diffownerB', diffagenB', 'Type', 'Spearman');
 figure,
-plotCorrelationDifference(diffownerB', diffagenB', a, b);
+plotCorrelationDifference(diffownerB', diffagenB', a, b);lsline
 
 
 
@@ -256,14 +256,14 @@ diffagenA = questionnaireData.processed.agency.visuomotor(1, :) - questionnaireD
 diffownerA = questionnaireData.processed.owner.visuomotor(1, :) - questionnaireData.processed.owner.visuomotor(2, :)
 [a, b] = corr(diffownerA', diffagenA', 'Type', 'Spearman')
 figure,
-plotCorrelationDifference(diffownerA', diffagenA', a, b);
+plotCorrelationDifference(diffownerA', diffagenA', a, b); lsline
 
 
 diffagenB = questionnaireData.processed.agency.outcome(1, :) - questionnaireData.processed.agency.outcome(2, :)
 diffownerB = questionnaireData.processed.owner.outcome(1, :) - questionnaireData.processed.owner.outcome(2, :)
 [a, b] = corr(diffownerB', diffagenB', 'Type', 'Spearman')
 figure,
-plotCorrelationDifference(diffownerB', diffagenB', a, b);
+plotCorrelationDifference(diffownerB', diffagenB', a, b); lsline
 
 diffoutcomeA = questionnaireData.processed.outcome.visuomotor(1, :) - questionnaireData.processed.outcome.visuomotor(2, :)
 diffoutcomeB = questionnaireData.processed.outcome.outcome(1, :) - questionnaireData.processed.outcome.outcome(2, :)
@@ -285,6 +285,64 @@ plotCorrelationDifference(diffagenA', diffoutcomeA', a, b);
 [a, b] = corr(diffagenB', diffoutcomeB', 'Type', 'Spearman');
 figure,
 plotCorrelationDifference(diffagenB', diffoutcomeB', a, b);
+
+
+
+lowchange = find(diffoutcomeA < 4)
+lowchange(lowchange == 39) = []
+highchange = find(diffoutcomeA >= 4)
+diffoutcomeAlow = questionnaireData.processed.outcome.visuomotor(1, lowchange) - questionnaireData.processed.outcome.visuomotor(3, lowchange);
+diffagenAlow = questionnaireData.processed.agency.visuomotor(1, lowchange) - questionnaireData.processed.agency.visuomotor(3, lowchange);
+diffownerAlow = questionnaireData.processed.owner.visuomotor(1, lowchange) - questionnaireData.processed.owner.visuomotor(3, lowchange);
+figure,
+plot(diffoutcomeAlow, diffownerAlow,  '.', 'MarkerSize', 20, 'color', 'k');
+hold on
+xlim([-7 7]); ylim([-7 7]);
+set(gca, 'YTick', -7:1:7, 'XTick', -7:1:7);
+plot(diffoutcomeAlow, diffagenAlow,  '.', 'MarkerSize', 20, 'color', 'b');
+plot(diffagenAlow, diffownerAlow,  '.', 'MarkerSize', 20, 'color', 'r');
+diffoutcomeAhig = questionnaireData.processed.outcome.visuomotor(1, highchange) - questionnaireData.processed.outcome.visuomotor(3, highchange);
+diffagenAhig = questionnaireData.processed.agency.visuomotor(1, highchange) - questionnaireData.processed.agency.visuomotor(3, highchange);
+diffownerAhig = questionnaireData.processed.owner.visuomotor(1, highchange) - questionnaireData.processed.owner.visuomotor(3, highchange);
+figure,
+plot(diffoutcomeAhig, diffownerAhig,  '.', 'MarkerSize', 20, 'color', 'k');
+hold on
+xlim([-7 7]); ylim([-7 7]);
+set(gca, 'YTick', -7:1:7, 'XTick', -7:1:7);
+plot(diffoutcomeAhig, diffagenAhig,  '.', 'MarkerSize', 20, 'color', 'b');
+plot(diffagenAhig, diffownerAhig,  '.', 'MarkerSize', 20, 'color', 'r');
+
+
+
+lowchangeB = find(diffoutcomeB < 4)
+find(diffoutcomeB < 0)
+lowchangeB(lowchangeB == 10) = []
+lowchangeB(lowchangeB == 12) = []
+lowchangeB(lowchangeB == 27) = []
+lowchangeB(lowchangeB == 36) = []
+
+diffoutcomeBlow = questionnaireData.processed.outcome.outcome(1, lowchangeB) - questionnaireData.processed.outcome.outcome(3, lowchangeB);
+diffagenBlow = questionnaireData.processed.agency.outcome(1, lowchangeB) - questionnaireData.processed.agency.outcome(3, lowchangeB);
+diffownerBlow = questionnaireData.processed.owner.outcome(1, lowchangeB) - questionnaireData.processed.owner.outcome(3, lowchangeB);
+diffoutcomeBhig = questionnaireData.processed.outcome.outcome(1, highchangeB) - questionnaireData.processed.outcome.outcome(3, highchangeB);
+diffagenBhig = questionnaireData.processed.agency.outcome(1, highchangeB) - questionnaireData.processed.agency.outcome(3, highchangeB);
+diffownerBhig = questionnaireData.processed.owner.outcome(1, highchangeB) - questionnaireData.processed.owner.outcome(3, highchangeB);
+
+figure,
+plot(diffoutcomeBlow, diffownerBlow,  '.', 'MarkerSize', 20, 'color', 'k');lsline
+hold on
+xlim([-7 7]); ylim([-7 7]);
+set(gca, 'YTick', -7:1:7, 'XTick', -7:1:7);
+plot(diffoutcomeBlow, diffagenBlow,  '.', 'MarkerSize', 20, 'color', 'b');
+plot(diffagenBlow, diffownerBlow,  '.', 'MarkerSize', 20, 'color', 'r');lsline
+figure,
+plot(diffoutcomeBhig, diffownerBhig,  '.', 'MarkerSize', 20, 'color', 'k');
+hold on
+xlim([-7 7]); ylim([-7 7]);
+set(gca, 'YTick', -7:1:7, 'XTick', -7:1:7);
+plot(diffoutcomeBhig, diffagenBhig,  '.', 'MarkerSize', 20, 'color', 'b');
+plot(diffagenBhig, diffownerBhig,  '.', 'MarkerSize', 20, 'color', 'r'); lsline
+
 
 
 %% GSR

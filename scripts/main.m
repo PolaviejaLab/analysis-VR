@@ -10,7 +10,7 @@ addpath('processData');
 
 
 %% Extract Questionnaire Data
-[subjectData] = extractSociodemographics (params, 'sociodemographics.txt');
+[subjectData] = extractSociodemcloographics (params, 'sociodemographics.txt');
 
 [questionnaireData.preprocessed, var] = extractQuestionnaires(params, subjectData);
 
@@ -21,6 +21,9 @@ save(strcat(params.dataDirectory, '\Results\preprocessedQuestionnaires.mat'), ..
 %% Extract GSR Data
 GSRData.preprocessed = ...
     extractGSR (params, subjectData, subjectData.subjectID);
+
+GSRData.processed = ...
+    processGSR(GSRData.preprocessed, subjectData.usedGSR, var);
 
 
 %% Extract Raw data for the .csv files
@@ -208,6 +211,80 @@ xlabel('incorrect waves / total waves');
     (double(var.waves.outcomeOwnership.incorrectWaves(3, :))./30)', ...
     questionnaireData.processed.owner.outcome(3, :)', 'Type', 'Spearman');
 
+
+
+%% Correlation differences
+
+diffoutcomeA = questionnaireData.processed.outcome.visuomotor(1, :) - questionnaireData.processed.outcome.visuomotor(3, :);
+diffagenA = questionnaireData.processed.agency.visuomotor(1, :) - questionnaireData.processed.agency.visuomotor(3, :);
+diffownerA = questionnaireData.processed.owner.visuomotor(1, :) - questionnaireData.processed.owner.visuomotor(3, :);
+
+diffoutcomeB = questionnaireData.processed.outcome.outcome(1, :) - questionnaireData.processed.outcome.outcome(3, :);
+diffagenB = questionnaireData.processed.agency.outcome(1, :) - questionnaireData.processed.agency.outcome(3, :);
+diffownerB = questionnaireData.processed.owner.outcome(1, :) - questionnaireData.processed.owner.outcome(3, :);
+
+[a, b] = corr(diffownerA', diffoutcomeA', 'Type', 'Spearman');
+figure,
+plotCorrelationDifference(diffownerA', diffoutcomeA', a, b);
+
+[a, b] = corr(diffownerB', diffoutcomeB', 'Type', 'Spearman');
+figure,
+plotCorrelationDifference(diffownerB', diffoutcomeB', a, b);
+
+
+[a, b] = corr(diffagenA', diffoutcomeA', 'Type', 'Spearman');
+figure,
+plotCorrelationDifference(diffagenA', diffoutcomeA', a, b);
+
+[a, b] = corr(diffagenB', diffoutcomeB', 'Type', 'Spearman');
+figure,
+plotCorrelationDifference(diffagenB', diffoutcomeB', a, b);
+
+
+[a, b] = corr(diffownerA', diffagenB', 'Type', 'Spearman');
+figure,
+plotCorrelationDifference(diffownerA', diffagenA', a, b);
+
+[a, b] = corr(diffownerB', diffagenB', 'Type', 'Spearman');
+figure,
+plotCorrelationDifference(diffownerB', diffagenB', a, b);
+
+
+
+
+diffagenA = questionnaireData.processed.agency.visuomotor(1, :) - questionnaireData.processed.agency.visuomotor(2, :)
+diffownerA = questionnaireData.processed.owner.visuomotor(1, :) - questionnaireData.processed.owner.visuomotor(2, :)
+[a, b] = corr(diffownerA', diffagenA', 'Type', 'Spearman')
+figure,
+plotCorrelationDifference(diffownerA', diffagenA', a, b);
+
+
+diffagenB = questionnaireData.processed.agency.outcome(1, :) - questionnaireData.processed.agency.outcome(2, :)
+diffownerB = questionnaireData.processed.owner.outcome(1, :) - questionnaireData.processed.owner.outcome(2, :)
+[a, b] = corr(diffownerB', diffagenB', 'Type', 'Spearman')
+figure,
+plotCorrelationDifference(diffownerB', diffagenB', a, b);
+
+diffoutcomeA = questionnaireData.processed.outcome.visuomotor(1, :) - questionnaireData.processed.outcome.visuomotor(2, :)
+diffoutcomeB = questionnaireData.processed.outcome.outcome(1, :) - questionnaireData.processed.outcome.outcome(2, :)
+
+[a, b] = corr(diffownerA', diffoutcomeA', 'Type', 'Spearman');
+figure,
+plotCorrelationDifference(diffownerA', diffoutcomeA', a, b);
+
+[a, b] = corr(diffownerB', diffoutcomeB', 'Type', 'Spearman');
+figure,
+plotCorrelationDifference(diffownerB', diffoutcomeB', a, b);
+
+
+[a, b] = corr(diffagenA', diffoutcomeA', 'Type', 'Spearman');
+figure,
+plotCorrelationDifference(diffagenA', diffoutcomeA', a, b);
+
+
+[a, b] = corr(diffagenB', diffoutcomeB', 'Type', 'Spearman');
+figure,
+plotCorrelationDifference(diffagenB', diffoutcomeB', a, b);
 
 
 %% GSR

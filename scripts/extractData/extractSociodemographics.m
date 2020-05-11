@@ -15,6 +15,8 @@ subjectData.nParticipants = numel(indUsed);
 subjectData.subjectID = table2array(sociodem_table(indUsed, params.sociodem.subjectID));
 
 % gender data
+subjectData.females = find(table2array(sociodem_table(indUsed, params.sociodem.gender)) == 1);
+subjectData.males = find(table2array(sociodem_table(indUsed, params.sociodem.gender)) == 0);
 subjectData.nFemales = sum(table2array(sociodem_table(indUsed, params.sociodem.gender)));
 subjectData.nMales = subjectData.nParticipants - subjectData.nFemales;
 subjectData.percFemale = subjectData.nFemales/subjectData.nParticipants * 100;

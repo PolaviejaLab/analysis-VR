@@ -1,0 +1,13 @@
+function [trialInformation, waves] = extractVariables (params, subjectData, var)
+
+% the output will be the numer of incorrect waves for every participant,
+% already ordered. to be introduced in the var struct. 
+
+[trialInformation.visuomotorInformation, waves.visuomotorInformation] = ...
+    GetVariablesFromTrials (params, ...
+    params.experimentTypes{1}, subjectData, var.orderTrials.visuomotorInformation);
+
+[trialInformation.outcomeOwnership, waves.outcomeOwnership] = ...
+    GetVariablesFromTrials (params, ...
+    params.experimentTypes{2}, subjectData, var.orderTrials.outcomeOwnership);
+end 

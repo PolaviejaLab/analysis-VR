@@ -2,7 +2,7 @@ addpath('..\..\figures\');
 addpath('..\..\getData\');
 addpath('..\..\');
 [params] = GetParameters();
-load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessData_Questionnaires.mat');
+% load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessData_Questionnaires.mat');
 
 
 %%
@@ -254,6 +254,6 @@ results.AgencyOutcome.FI.Condition2 = params.conditionStatic{1, 3};
 
 
 %% Save Variables
-save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\ProcessedData_Questionnaires.mat', ...
+save('C:\Users\polav\Desktop\VR_Data\Thesis_Experiment2\ProcessedData_Questionnaires.mat', ...
     'results');
 

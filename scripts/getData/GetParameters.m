@@ -1,6 +1,6 @@
 function [params] = GetParameters ()
 % Folders
-params.dataDirectory = 'V:\Data\06. ExpRep';
+params.dataDirectory = 'E:\Data\06. ExpRep';
 
 params.waves_trial = [...
     1:25;

@@ -1,7 +1,7 @@
 function [orderArray] = getOrderFromLog (dataDirectory)
 
 %% Common variables
-gitDirectory = 'E:\GitHub\Victoria-Discontinuity\'
+gitDirectory = 'C:\Users\polav\Documents\GitHub\Victoria-Discontinuity\';
 filesSubjects = dir(fullfile(dataDirectory, 'Subject*'));
 
 n_subjects = size(filesSubjects, 1);
@@ -42,6 +42,6 @@ for i_subject = 1:n_subjects
     catch
         orderArray(:, i_subject) = nan;
     end
-    save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\QuestionnaireOrder.mat', 'orderArray');
+    save('C:\Users\polav\Desktop\VR_Data\Thesis_Experiment2\QuestionnaireOrder', 'orderArray');
 end
 

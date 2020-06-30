@@ -1,4 +1,4 @@
-addpath('..');
+addpath('..\');
 
 %% Variables
 [params] = GetParameters();
@@ -30,17 +30,17 @@ sociodem_array = table2array(sociodem_table(vecUsed, 3:9));
 QuestionnaireData.staticUsed = QuestionnaireData.static(:, :, vecUsed);
 QuestionnaireData.dynamicUsed = QuestionnaireData.dynamic(:, :, vecUsed);
 
-load('E:\GitHub\analysis-VR\data\03. Experiment_Rep\QuestionnaireOrder.mat');
+load('C:\Users\polav\Desktop\VR_Data\Thesis_Experiment2\QuestionnaireOrder.mat');
 OrderQuestionnaires.All = orderArray; 
 OrderQuestionnaires.Used = orderArray(:, vecUsed);
 
 
 %% Save parameters
-save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\SubjectData.mat', ...
+save('C:\Users\polav\Desktop\VR_Data\Thesis_Experiment2\SubjectData.mat', ...
     'SubjectData');
-save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\QuestionnaireOrder.mat', ...
+save('C:\Users\polav\Desktop\VR_Data\Thesis_Experiment2\QuestionnaireOrder.mat', ...
     'OrderQuestionnaires');
-save('E:\GitHub\analysis-VR\data\03. Experiment_Rep\PreprocessData_Questionnaires.mat', ...
+save('C:\Users\polav\Desktop\VR_Data\Thesis_Experiment2\PreprocessData_Questionnaires.mat', ...
      'QuestionnaireData', 'vecUsed');
 
  

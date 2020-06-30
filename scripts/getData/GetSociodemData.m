@@ -1,4 +1,5 @@
 function [subjectData] = GetSociodemData (input_array)
+
 nParticipants = size(input_array, 1);
 
 % changes according to new tables
@@ -11,6 +12,8 @@ handedness_col = 7;
 
 % Gender data
 gender_array = input_array(:, gender_col);
+subjectData.females = find(gender_array == 1);
+subjectData.males = find(gender_array == 0);
 subjectData.nFemales = sum(gender_array);
 subjectData.nMales = nParticipants - subjectData.nFemales;
 subjectData.percFemale = sum(gender_array)/nParticipants * 100;

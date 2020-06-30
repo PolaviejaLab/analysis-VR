@@ -1,6 +1,6 @@
 function [params] = GetParameters ()
 % Folders
-params.dataDirectory = 'E:\Data\08. CB_VR_Outcome';
+params.dataDirectory = 'E:\Data\08. CB_VR_Outcome'; 
 
 params.experimentTypes = {'Visuomotor Information' 'Outcome Ownership'};
 

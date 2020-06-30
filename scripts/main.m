@@ -212,6 +212,17 @@ xlabel('incorrect waves / total waves');
     questionnaireData.processed.owner.outcome(3, :)', 'Type', 'Spearman');
 
 
+%% Sense of ownership and sociodemographic information
+
+addpath('\processData\');
+
+ownership_scores = mean([...
+    questionnaireData.processed.owner.visuomotor(1, :); ...
+    questionnaireData.processed.owner.outcome(1, :)]);
+
+[results] = ownership_sociodem (ownership_scores, subjectData);
+
+
 
 % %% Correlation differences
 % 

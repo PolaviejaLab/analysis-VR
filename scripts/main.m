@@ -2,7 +2,7 @@
 addpath('extractData');
 addpath('figures');
 addpath('analyzeData/questionnaires');
-addpath('processData');
+addpath('process_data');
 
 %% Find variables 
 % This file should be modified with the parameters of each experiment
@@ -18,12 +18,13 @@ save(strcat(params.dataDirectory, '\Results\subjectData'), 'subjectData');
 save(strcat(params.dataDirectory, '\Results\preprocessedQuestionnaires.mat'), ...
     'questionnaireData');
 
-%% Extract GSR Data
-GSRData.preprocessed = ...
-    extractGSR (params, subjectData, subjectData.subjectID);
 
-GSRData.processed = ...
-    processGSR(GSRData.preprocessed, subjectData.usedGSR, var);
+%% Extract GSR Data
+% GSRData.preprocessed = ...
+%     extractGSR (params, subjectData, subjectData.subjectID);
+% 
+% GSRData.processed = ...
+%     processGSR(GSRData.preprocessed, subjectData.usedGSR, var);
 
 
 %% Extract Raw data for the .csv files
@@ -31,6 +32,10 @@ GSRData.processed = ...
 
 
 %% Process Data
+
+addpath('process_data');
+
+
 questionnaireData.processed.owner.visuomotor = ...
     squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation(params.quest.owner, :, :))));
 questionnaireData.processed.ownerC.visuomotor = ...

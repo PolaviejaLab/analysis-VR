@@ -37,25 +37,33 @@ ind_med = find(data1 > 3 & nanmean(data1) < 5);
 ind_hig = find(data1 >= 5);
 
 % Lines
-line([1 7], [1 7], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]);
-line([1 1], [0 1], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]); 
-line([0 1], [1 1], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]);
-line([3 3], [0 3], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]); 
-line([0 3], [3 3], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]);
-line([5 5], [0 5], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]); 
-line([0 5], [5 5], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]);
-line([7 7], [0 7], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]); 
-line([0 7], [7 7], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]);
+% line([1 7], [1 7], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]);
+% line([1 1], [0 1], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]); 
+% line([0 1], [1 1], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]);
+% line([3 3], [0 3], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]); 
+% line([0 3], [3 3], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]);
+% line([5 5], [0 5], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]); 
+% line([0 5], [5 5], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]);
+% line([7 7], [0 7], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]); 
+% line([0 7], [7 7], 'LineStyle', ':', 'Color', [200/255, 200/255, 200/255]);
+
+
+line([1 1], [-7 7], 'LineStyle', '--', 'Color', [200/255, 200/255, 200/255]); 
+line([7 7], [-7 7], 'LineStyle', '--', 'Color', [200/255, 200/255, 200/255]); 
+line([3 3], [-7 7], 'LineStyle', '--', 'Color', [200/255, 200/255, 200/255]); 
+line([5 5], [-7 7], 'LineStyle', '--', 'Color', [200/255, 200/255, 200/255]); 
+line([0 8], [0 0], 'LineStyle', '--', 'Color', [200/255, 200/255, 200/255]); 
 
 
 % Plot
-plot(data1(:, ind_low),data2(:, ind_low), '.', ...
-    'MarkerSize', 20, 'color', 'k'); % [220/255, 220/255, 220/255]); hold on
-plot(data1(:, ind_med), data2(:, ind_med), '.', ...
-    'MarkerSize', 20, 'color', 'k'); % [150/255, 150/255, 150/255]); 
-plot(data1(:, ind_hig), data2(:, ind_hig), '.', ...
-    'MarkerSize', 20, 'color', 'k'); % [80/255, 80/255, 80/255]); 
+% plot(data1(:, ind_low),data2(:, ind_low), '.', ...
+%     'MarkerSize', 20, 'color', 'k'); % [220/255, 220/255, 220/255]); hold on
+% plot(data1(:, ind_med), data2(:, ind_med), '.', ...
+%     'MarkerSize', 20, 'color', 'k'); % [150/255, 150/255, 150/255]); 
+% plot(data1(:, ind_hig), data2(:, ind_hig), '.', ...
+%     'MarkerSize', 20, 'color', 'k'); % [80/255, 80/255, 80/255]); 
 
+plot(data1, data2 - data1, '.', 'MarkerSize', 20, 'color', 'k'); lsline;
 
 if (statValues.RhocorrPval < 0.001)
     text(1,6, 'p<0.001', 'fontname', 'arial');
@@ -73,8 +81,9 @@ text(1, 6.5, strcat('rho= ', num2str(spearmanrho)), 'fontname', 'arial');
 % pearsonr = round(statValues.pearsonR*1000)/1000;
 % text(1, 6.5, strcat('r= ', num2str(pearsonr)), 'fontname', 'arial');
 
+lsline;
 
-xlim([0.5 7.5]); ylim([0.5 7.5]);
+xlim([0.5 7.5]); ylim([-6.5 6.5]);
 title(plot_title, 'fontname', 'arial');
 xlabel(cond1, 'fontname', 'arial');
 ylabel(cond2, 'fontname', 'arial');

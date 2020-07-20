@@ -8,7 +8,6 @@ addpath('process_data');
 % This file should be modified with the parameters of each experiment
 [params] = GetParameters();
 
-
 %% Extract Questionnaire Data
 [subjectData] = extractSociodemographics (params, 'sociodemographics.txt');
 
@@ -34,7 +33,6 @@ save(strcat(params.dataDirectory, '\Results\preprocessedQuestionnaires.mat'), ..
 %% Process Data
 
 addpath('process_data');
-
 
 questionnaireData.processed.owner.visuomotor = ...
     squeeze(nanmean(squeeze(questionnaireData.preprocessed.visuomotorInformation(params.quest.owner, :, :))));

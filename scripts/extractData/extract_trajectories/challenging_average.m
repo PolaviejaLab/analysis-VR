@@ -1,4 +1,4 @@
-figure, hold on,
+ figure, hold on,
 
 cond_wave_duration =  [];
 cond_max_displacement = [];
@@ -81,10 +81,12 @@ for t = 1:size(traj_handpByTrial, 2)
             
             % Get kinematics for each wave
             kinematics = get_kinematics_parameters(wave_a, -wave_c, wave_t);
+         
             max_displacement = vertcat(max_displacement, kinematics.wavemaxdisplacement);
 %             trial_vel_vector = horzcat(trial_vel_vector, kinematics.vel_vector); % uncomment to plot velocity
             trial_t_vector = horzcat(trial_t_vector, wave_t-wave_t(1));
             trial_vel_vector = horzcat(trial_vel_vector, kinematics.turtu_vector); % uncomment to plot turtu
+            wave_duration = vertcat(wave_duration, kinematics.waveduration);
             
         end
         
@@ -125,11 +127,11 @@ for t = 1:size(traj_handpByTrial, 2)
     %     cond_wave_duration = horzcat(cond_wave_duration, wave_duration);
     
     % Plot mean velocity or turtu
-    plot(nanmedian(all_t_vector,2), nanmedianthr(all_av_velocity,0.25), 'k', 'LineWidth', 2)
-    hold on,
-    plot(nanmedian(all_t_vector,2), nanmedianthr(all_av_velocity,0.25) - nanstdthr(all_av_velocity,0.25)/sqrt(43), 'k')
-    plot(nanmedian(all_t_vector,2), nanmedianthr(all_av_velocity,0.25) + nanstdthr(all_av_velocity,0.25)/sqrt(43), 'k')
+%     plot(nanmedian(all_t_vector,2), nanmedianthr(all_av_velocity,0.25), 'k', 'LineWidth', 2)
+%     hold on,
+%     plot(nanmedian(all_t_vector,2), nanmedianthr(all_av_velocity,0.25) - nanstdthr(all_av_velocity,0.25)/sqrt(43), 'k')
+%     plot(nanmedian(all_t_vector,2), nanmedianthr(all_av_velocity,0.25) + nanstdthr(all_av_velocity,0.25)/sqrt(43), 'k')
 %     axis([0 3000 0 750]) % Uncomment to plot velocity
-    axis([0 3000 0 6]) % Uncommment to plot turtu
+%     axis([0 3000 0 6]) % Uncommment to plot turtu
 end
 
